@@ -1,0 +1,146 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cmj-hub/claude-pricing/main/brand-config.schema.json",
+
+  "operator": {
+    "name": "Your Name",
+    "title": "Founder",
+    "company": "Acme Cloud",
+    "calendar_url": "https://cal.com/yourname/intro"
+  },
+
+  "customer": {
+    "psps": [
+      {
+        "slug": "series-b-saas-demand-gen-lead",
+        "summary": "Series-B SaaS, $20-50M ARR, demand-gen motion underperforming",
+        "primary_pain": "Pipeline gap; existing demand-gen isn't producing enough SQLs",
+        "vocabulary": [
+          "pipeline gap",
+          "SDR ramp",
+          "we keep closing wrong-fit logos"
+        ]
+      }
+    ],
+    "competitors": [
+      {"name": "Competitor X", "list_price": "$499/mo", "psp_overlap": "partial"}
+    ],
+    "buyer_personas": [
+      {"role": "VP Demand Gen", "budget_authority": "co-signer"},
+      {"role": "CEO / Founder", "budget_authority": "final"}
+    ]
+  },
+
+  "pricing": {
+    "currentTiers": [
+      {
+        "name": "Starter",
+        "price": 99,
+        "cadence": "monthly",
+        "value_metric_unit": "seat",
+        "value_metric_quantity": 5,
+        "features": ["SSO", "Basic reporting", "Email support"]
+      },
+      {
+        "name": "Pro",
+        "price": 299,
+        "cadence": "monthly",
+        "value_metric_unit": "seat",
+        "value_metric_quantity": 25,
+        "features": ["SSO", "Basic reporting", "Audit log", "Priority support"]
+      },
+      {
+        "name": "Scale",
+        "price": 999,
+        "cadence": "monthly",
+        "value_metric_unit": "seat",
+        "value_metric_quantity": 100,
+        "features": ["SSO", "Basic reporting", "Audit log", "Priority support", "Named CSM"]
+      }
+    ],
+    "valueMetric": {
+      "unit": "seat",
+      "scales_with_customer_success": true,
+      "gaming_risk": "low",
+      "alignment_score": 75
+    },
+    "wtpResearch": {
+      "method": "van-westendorp",
+      "lastConducted": "2026-03-15",
+      "n_respondents": 28,
+      "per_psp": true,
+      "results_path": "./pricing-research/wtp-2026q1.json"
+    },
+    "referenceAnchor": {
+      "frame": "inertia",
+      "quantified": "~$80K/year of internal time + tooling for the in-house alternative",
+      "copy_block_path": "./pricing-page/anchor-copy.md"
+    },
+    "pocketWaterfall": {
+      "lastReviewed": "2026-04-01",
+      "steps": ["list", "ramp_discount", "volume_discount", "annual_prepay", "strategic_discount", "implementation_credit", "payment_terms"],
+      "total_leak_pct": 18.5,
+      "top_3_leaks": ["ramp_discount", "strategic_discount", "annual_prepay"]
+    },
+    "discountPolicy": {
+      "documented": true,
+      "thresholds": {
+        "rep_authority": "0-10%",
+        "manager_authority": "10-20%",
+        "vp_authority": "20-30%",
+        "ceo_required": "30%+"
+      },
+      "reason_code_required_above_pct": 10,
+      "forbidden_reasons": ["close the deal alone", "competitor said they'd match"]
+    },
+    "tiers": {
+      "architecture": "three-tier-decoy",
+      "target_landing_distribution": {"decoy": 8, "target": 75, "anchor": 17},
+      "lastRebuilt": "2026-02-10"
+    },
+    "renewal": {
+      "cadence": "annual",
+      "priorNoticeDays": 90,
+      "grandfather_policy": "ramp-12-month",
+      "lastNoticeTemplate": "./pricing-page/renewal-notice.md"
+    },
+    "expansion": {
+      "triggers": [
+        {"name": "usage_80_pct", "action": "surface_upgrade_30_days_prior"},
+        {"name": "role_change", "action": "reset_relationship"},
+        {"name": "adjacent_team", "action": "treat_as_new_logo"}
+      ]
+    },
+    "review": {
+      "cadence": "quarterly",
+      "nextScheduled": "2026-07-15",
+      "owners": ["CEO", "VP Sales", "CFO", "VP Product"],
+      "log": []
+    }
+  },
+
+  "tone": {
+    "register": "direct, surgical, no-BS",
+    "banned_phrases": [
+      "investment",
+      "leverage",
+      "value-add",
+      "best-in-class",
+      "industry-leading",
+      "world-class"
+    ],
+    "preferred_phrases": [
+      "Specifically:",
+      "Here's the receipt:",
+      "The lever is...",
+      "Most teams blame X; the real issue is Y..."
+    ],
+    "first_person_singular_ok": true,
+    "swearing_ok": false
+  },
+
+  "operations": {
+    "quarterly_review_calendar_held": true,
+    "experiment_log_path": "./pricing-experiments.md",
+    "failed_test_registry_path": "./pricing-failed-tests.md"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "pricing",
+  "version": "0.2.0",
+  "description": "B2B pricing as a surgical discipline. Pricing-page diagnostics, three-tier contrast-set design with decoy-effect engineering, reference-frame architecture (inertia / opportunity cost / replacement cost), pocket-price waterfall, Van Westendorp WTP analysis, and quarterly review cadence. Based on the JMC Pricing Surgery course (Hermann Simon lineage + Prospect Theory).",
+  "author": { "name": "Jay Mount Consulting" },
+  "license": "MIT",
+  "homepage": "https://github.com/cmj-hub/claude-pricing"
+}
