@@ -1,0 +1,28 @@
+{
+  "title": "Pricing Surgery",
+  "subtitle": "Turn pricing pages into compound-growth machines",
+  "accent_color": "#CC4714",
+  "tagline_top": "JMC Skill Pack",
+  "demo_steps": [
+    {
+      "duration_ms": 1200,
+      "title": "Diagnose",
+      "body": "Three-surface diagnostic across page, motion, and contract"
+    },
+    {
+      "duration_ms": 1200,
+      "title": "Reframe",
+      "body": "Anchor design and Prospect-Theory framing"
+    },
+    {
+      "duration_ms": 1200,
+      "title": "Contrast",
+      "body": "3-tier architecture with asymmetric-dominance decoys"
+    },
+    {
+      "duration_ms": 1200,
+      "title": "Defend",
+      "body": "Pocket waterfall and renewal discipline"
+    }
+  ]
+}
