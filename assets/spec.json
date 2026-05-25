@@ -3,26 +3,22 @@
   "subtitle": "Turn pricing pages into compound-growth machines",
   "accent_color": "#CC4714",
   "tagline_top": "JMC Skill Pack",
-  "demo_steps": [
-    {
-      "duration_ms": 1200,
-      "title": "Diagnose",
-      "body": "Three-surface diagnostic across page, motion, and contract"
-    },
-    {
-      "duration_ms": 1200,
-      "title": "Reframe",
-      "body": "Anchor design and Prospect-Theory framing"
-    },
-    {
-      "duration_ms": 1200,
-      "title": "Contrast",
-      "body": "3-tier architecture with asymmetric-dominance decoys"
-    },
-    {
-      "duration_ms": 1200,
-      "title": "Defend",
-      "body": "Pocket waterfall and renewal discipline"
-    }
-  ]
+  "command": "/pricing",
+  "user_prompt": "audit our pricing page",
+  "response_lines": [
+    "Reading current pricing page...",
+    "Diagnosing: 3 flat tiers, no asymmetric decoy",
+    "Anchor weak — no high-tier reference frame",
+    "Building pocket-price waterfall...",
+    "Prescription ready"
+  ],
+  "artifact": {
+    "label": "pricing/prescription.md",
+    "lines": [
+      "list_price      $2,400",
+      "− leakage         432   (18%)",
+      "+ value_floor     +60",
+      "= pocket_price  $2,028   (84.5% realized)"
+    ]
+  }
 }
