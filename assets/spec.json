@@ -1,4 +1,5 @@
 {
+  "renderer_version": 2,
   "title": "Pricing Surgery",
   "subtitle": "Turn pricing pages into compound-growth machines",
   "accent_color": "#CC4714",
@@ -8,7 +9,7 @@
   "response_lines": [
     "Reading current pricing page...",
     "Diagnosing: 3 flat tiers, no asymmetric decoy",
-    "Anchor weak — no high-tier reference frame",
+    "Anchor weak \u2014 no high-tier reference frame",
     "Building pocket-price waterfall...",
     "Prescription ready"
   ],
@@ -16,7 +17,7 @@
     "label": "pricing/prescription.md",
     "lines": [
       "list_price      $2,400",
-      "− leakage         432   (18%)",
+      "\u2212 leakage         432   (18%)",
       "+ value_floor     +60",
       "= pocket_price  $2,028   (84.5% realized)"
     ]
