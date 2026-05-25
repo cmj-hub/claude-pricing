@@ -28,7 +28,7 @@ lock-in. Bring your own model; bring your own data.
 ## What it does
 
 ```mermaid
-graph LR
+graph TB
     A["/pricing"] --> B{Kickoff: state check}
     B -->|First time| C[Onboarding<br/>brand-config + SOUL]
     B -->|Have config| D[Diagnostic / Audit / Tribunal]
