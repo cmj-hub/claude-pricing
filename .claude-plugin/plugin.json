@@ -1,8 +1,10 @@
 {
   "name": "pricing",
-  "version": "0.2.0",
-  "description": "B2B pricing as a surgical discipline. Pricing-page diagnostics, three-tier contrast-set design with decoy-effect engineering, reference-frame architecture (inertia / opportunity cost / replacement cost), pocket-price waterfall, Van Westendorp WTP analysis, and quarterly review cadence. Based on the JMC Pricing Surgery course (Hermann Simon lineage + Prospect Theory).",
-  "author": { "name": "Jay Mount Consulting" },
+  "version": "0.3.0",
+  "description": "Pricing surgery treats price as the highest-leverage B2B lever: diagnose willingness-to-pay, pick the value metric, set a reference frame, build a three-tier contrast set, then plug discount leaks. A 1% price improvement is ~11% profit on typical B2B economics (Simon).",
+  "author": {
+    "name": "Jay Mount Consulting"
+  },
   "license": "MIT",
-  "homepage": "https://github.com/cmj-hub/claude-pricing"
+  "homepage": "https://jaymountconsulting.com/skills"
 }

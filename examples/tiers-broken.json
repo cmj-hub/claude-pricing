@@ -1,0 +1,31 @@
+{
+  "tiers": [
+    {
+      "name": "Basic",
+      "price": 99,
+      "cadence": "monthly",
+      "value_metric_unit": "seat",
+      "value_metric_quantity": 5,
+      "features": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ]
+    },
+    {
+      "name": "Pro",
+      "price": 299,
+      "cadence": "monthly",
+      "value_metric_unit": "api_call",
+      "value_metric_quantity": 10000,
+      "features": [
+        "A"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "name": "jmc-pricing",
+  "version": "0.3.0",
+  "description": "Pricing surgery treats price as the highest-leverage B2B lever: diagnose willingness-to-pay, pick the value metric, set a reference frame, build a three-tier contrast set, then plug discount leaks. A 1% price improvement is ~11% profit on typical B2B economics (Simon).",
+  "license": "MIT",
+  "bin": {
+    "jmc-pricing": "./install.sh"
+  },
+  "scripts": {
+    "install-skills": "npx -y skills add cmj-hub/claude-pricing --all -g --copy --full-depth",
+    "smoke": "bash scripts/smoke-test.sh"
+  },
+  "files": [
+    "skills",
+    "pricing",
+    "scripts",
+    "agents",
+    "examples",
+    "AGENTS.md",
+    "SOUL.md",
+    "brand-config.example.json",
+    "README.md",
+    "LICENSE",
+    "install.sh",
+    "install.ps1"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmj-hub/claude-pricing.git"
+  },
+  "homepage": "https://jaymountconsulting.com/skills",
+  "bugs": {
+    "url": "https://github.com/cmj-hub/claude-pricing/issues"
+  },
+  "keywords": [
+    "agent-skills",
+    "claude-code",
+    "cursor",
+    "codex",
+    "grok",
+    "pricing",
+    "hermann-simon",
+    "b2b"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}

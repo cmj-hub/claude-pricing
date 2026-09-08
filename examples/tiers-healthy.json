@@ -1,0 +1,42 @@
+{
+  "tiers": [
+    {
+      "name": "Starter",
+      "price": 99,
+      "cadence": "monthly",
+      "value_metric_unit": "seat",
+      "value_metric_quantity": 5,
+      "features": [
+        "SSO",
+        "Basic reporting"
+      ]
+    },
+    {
+      "name": "Pro",
+      "price": 299,
+      "cadence": "monthly",
+      "value_metric_unit": "seat",
+      "value_metric_quantity": 25,
+      "features": [
+        "SSO",
+        "Basic reporting",
+        "Audit log",
+        "Priority support"
+      ]
+    },
+    {
+      "name": "Scale",
+      "price": 999,
+      "cadence": "monthly",
+      "value_metric_unit": "seat",
+      "value_metric_quantity": 100,
+      "features": [
+        "SSO",
+        "Basic reporting",
+        "Audit log",
+        "Priority support",
+        "Named CSM"
+      ]
+    }
+  ]
+}
