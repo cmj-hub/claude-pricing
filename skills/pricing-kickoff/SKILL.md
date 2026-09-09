@@ -2,10 +2,10 @@
 name: pricing-kickoff
 description: Adaptive router for the pricing skill pack. Detects the operator's current state (brand-config present? SOUL.md present? current tiers documented? WTP discovery done? PSP defined? value-metric chosen? reference anchor set? pocket-price waterfall built? quarterly review scheduled?) and picks the next-best step. Loaded by the main pricing skill on bare invocation ("/pricing") or when the operator asks "where do I start" / "what's next" / "first time using this."
 user-invocable: false
-allowed-tools:
-  - Read
-  - Glob
+allowed-tools: Read Glob
   - Bash
+license: MIT
+
 ---
 
 # Pricing Kickoff — sub-skill

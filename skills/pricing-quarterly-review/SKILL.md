@@ -2,9 +2,10 @@
 name: pricing-quarterly-review
 description: The quarterly pricing review cadence — the operating practice that prevents pricing drift. Produces a quarterly review agenda, the data pull list (close-rate, discount-rate, pocket-price waterfall, tier-landing distribution, WTP refresh status), and the verdict format (hold / iterate / escalate to tribunal). Loaded by the main pricing skill when the operator asks about quarterly review, ops cadence, or "what should I check on pricing this quarter."
 user-invocable: false
-allowed-tools:
-  - Read
+allowed-tools: Read
   - Write
+license: MIT
+
 ---
 
 # Pricing Quarterly Review — sub-skill

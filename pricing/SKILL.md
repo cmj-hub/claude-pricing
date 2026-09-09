@@ -17,12 +17,10 @@ description: >
   pricing", "B2B pricing", "SaaS pricing", "services pricing", "renewal
   pricing", "expansion pricing", "outcome-tied guarantee", "pricing
   review".
-allowed-tools:
-  - Read
-  - Write
-  - Grep
-  - Glob
+allowed-tools: Read Write Grep Glob
   - Bash
+license: MIT
+
 ---
 
 # Pricing — JMC Pricing Surgery Skill
@@ -140,20 +138,8 @@ Load these on demand for deeper context:
 - [`agents/pricing-reviewer`](../agents/pricing-reviewer.md) — Pricing-page + tier scorer (0-100)
 - [`agents/pricing-tribunal-judge`](../agents/pricing-tribunal-judge.md) — Adjudicates pricing hypotheses against the verdict matrix
 
-## Full course
+## Free hosted version
 
-This skill is the agent-form of the **Pricing Surgery: The Hermann
-Simon Discipline** course in The Compounding Engine. The full course
-covers 40 lessons across diagnostic discipline, reference frames,
-value-metric engineering, contrast-set architecture, operating
-practice, deep cuts on common failure modes, and the capstone
-Pricing Decision Tribunal sprint.
+The same job runs in a browser, no install and no key:
+[Pricing Page Lab](https://jaymountconsulting.com/tools/pricing-page-lab)
 
-→ [jaymountconsulting.com/learn/courses/pricing-surgery](https://jaymountconsulting.com/learn/courses/pricing-surgery)
-
-## Operator Pass — the 52-tool API
-
-Pricing diagnostics and the pocket-price waterfall run as hosted API
-endpoints in [Operator Pass](https://jaymountconsulting.com/operator-pass)
-(`/api/v1/tools/pricing-*`). Cross-runtime install via
-[`claude-operator-pass`](https://github.com/cmj-hub/claude-operator-pass).

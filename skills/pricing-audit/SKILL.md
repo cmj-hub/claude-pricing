@@ -2,10 +2,10 @@
 name: pricing-audit
 description: 30-point audit of a B2B pricing program across four dimensions — diagnostic data (8 points), reference frames + copy (8 points), tier architecture (8 points), and operating practice (6 points). Produces a 0-100 score, the top 3 levers, and a 90-day remediation order. Loaded by the main pricing skill when the operator asks to audit or grade their pricing. Based on the JMC 30-Point Pricing Audit framework.
 user-invocable: false
-allowed-tools:
-  - Read
-  - Write
+allowed-tools: Read Write
   - Grep
+license: MIT
+
 ---
 
 # Pricing Audit — sub-skill

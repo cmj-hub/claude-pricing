@@ -2,9 +2,10 @@
 name: pricing-onboarding
 description: First-run interactive setup for the pricing skill pack. Walks the operator through brand-config.json (current tiers, ICP, value metric, infrastructure) and the pricing section of SOUL.md (voice + stance on pricing + stories you cite) in ~10 minutes. Refuses to let the operator skip — generic pricing output is worse than no pricing output. Loaded automatically by the main pricing skill when brand-config.json or SOUL.md is missing.
 user-invocable: false
-allowed-tools:
-  - Read
+allowed-tools: Read
   - Write
+license: MIT
+
 ---
 
 # Pricing Onboarding — sub-skill
