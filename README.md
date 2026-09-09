@@ -72,14 +72,17 @@ No for the first loop. The decoy validator runs on a three-tier JSON file. Van W
 
 No. It scores and recommends. Shipping the change — grandfathering, sales enablement, the email to the book — is your motion.
 
-## Free tools that do this in a browser
+## Free, no signup
 
-No install, no signup, no key.
-
-- **[Pricing Page Lab](https://jaymountconsulting.com/tools/pricing-page-lab)** — the same job as this pack, hosted
+- **[Pricing Page Lab](https://jaymountconsulting.com/tools/pricing-page-lab)** — the same job as this pack, hosted. No account, no key.
 - [Offers & Productized Outcomes framework](https://jaymountconsulting.com/frameworks/offers-productized-outcomes)
-- [Revenue Expansion Scorecard](https://jaymountconsulting.com/revenue-expansion-audit)
 - [Calculator Pack](https://jaymountconsulting.com/resources/calculator-pack)
+
+## Free, by email
+
+[**Revenue Expansion Scorecard**](https://jaymountconsulting.com/revenue-expansion-audit) — where expansion revenue is leaking, sent to your inbox.
+
+That one does ask for an email, and it enrols you in a short follow-up on the same topic. Unsubscribe whenever.
 
 
 ## Companion packs
@@ -102,5 +105,6 @@ Built by [Jay Mount Consulting](https://jaymountconsulting.com).
 `assets/social-preview.png` and `assets/header.png` are generated from `assets/spec.json` by a vendored renderer — no CI, no shared workflow, no network beyond the webfonts:
 
 ```bash
-node assets/card.mjs assets/spec.json assets/
+node assets/card.mjs assets/spec.json assets/          # social-preview.png + header.png
+npm i playwright-core && node assets/demo.mjs assets/spec.json assets/demo.gif
 ```
