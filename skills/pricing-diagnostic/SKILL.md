@@ -2,10 +2,10 @@
 name: pricing-diagnostic
 description: The three-surface pricing diagnostic — willingness-to-pay distribution, value-metric alignment, and packaging-vs-pricing diagnosis. Loaded by the main pricing skill when the operator asks "should I raise prices", "where am I leaving money on the table", or "diagnose my pricing." Outputs a diagnostic report with surface-level scores (0-100 per surface), top 3 leaks, and a triage decision (price-tune / package-rebuild / metric-shift / hold).
 user-invocable: false
-allowed-tools:
-  - Read
-  - Write
+allowed-tools: Read Write
   - Grep
+license: MIT
+
 ---
 
 # Pricing Diagnostic — sub-skill

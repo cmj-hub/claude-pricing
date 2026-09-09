@@ -2,10 +2,10 @@
 name: pricing-reference-frames
 description: Design the reference-frame stack for pricing copy. Picks the strongest plausible anchor (inertia / opportunity cost / replacement cost / competitor) for the operator's PSP segment, generates the anchor copy block, and applies Prospect Theory loss-aversion patterns so the page reads "worth it or refund" rather than "save 40%." Loaded by the main pricing skill when the operator asks about anchoring, framing, or rewriting pricing copy.
 user-invocable: false
-allowed-tools:
-  - Read
-  - Write
+allowed-tools: Read Write
   - Grep
+license: MIT
+
 ---
 
 # Pricing Reference Frames — sub-skill

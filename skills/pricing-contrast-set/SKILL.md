@@ -2,9 +2,10 @@
 name: pricing-contrast-set
 description: Design the three-tier contrast-set architecture — decoy / target / anchor. Applies asymmetric dominance (Ariely) so the decoy makes the target obviously better, the anchor sets the high reference frame, and ~75% of buyers land on the target tier. Loaded by the main pricing skill when the operator asks to design tiers, redesign the pricing page, or apply the decoy effect. Outputs tier definitions, feature differentiation, value-metric scaling per tier, and the predicted landing distribution.
 user-invocable: false
-allowed-tools:
-  - Read
+allowed-tools: Read
   - Write
+license: MIT
+
 ---
 
 # Pricing Contrast-Set — sub-skill

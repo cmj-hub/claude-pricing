@@ -2,10 +2,10 @@
 name: pricing-pocket-waterfall
 description: Build and analyze the pocket-price waterfall — every step where margin leaks between list price and final pocket. Backed by a deterministic Python script that takes line-item discount data and produces the per-customer + cohort waterfall + leak ranking. Loaded by the main pricing skill when the operator asks "my discounts are eating margin", "where is margin leaking", "pocket price", or "discount policy review."
 user-invocable: false
-allowed-tools:
-  - Read
-  - Write
+allowed-tools: Read Write
   - Bash
+license: MIT
+
 ---
 
 # Pricing Pocket Waterfall — sub-skill

@@ -2,9 +2,10 @@
 name: pricing-value-metric
 description: Pick the right value metric (price unit) for B2B pricing — per-seat, per-API-call, per-active-record, per-outcome, per-revenue-processed, hybrid. Diagnoses the operator's current metric vs the unit that scales with customer success, identifies gaming + misalignment failure modes, and outputs a recommended metric switch with the metric-shift case study reservoir. Loaded by the main pricing skill when the operator asks about per-seat vs per-X, value metric, price unit, or "should I change how I charge?"
 user-invocable: false
-allowed-tools:
-  - Read
+allowed-tools: Read
   - Write
+license: MIT
+
 ---
 
 # Pricing Value Metric — sub-skill
