@@ -18,10 +18,10 @@
   "artifact": {
     "label": "pricing/prescription.md",
     "lines": [
-      "list_price      $2,400",
+      "list_price      $1,800",
       "− leakage         432   (18%)",
       "+ value_floor     +60",
-      "= pocket_price  $2,028   (84.5% realized)"
+      "= pocket_price  $1,521   (84.5% realized)"
     ]
   }
 }
