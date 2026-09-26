@@ -80,7 +80,7 @@ No. It scores and recommends. Shipping the change — grandfathering, sales enab
 
 ## Free, by email
 
-[**Revenue Expansion Scorecard**](https://jaymountconsulting.com/revenue-expansion-audit) — where expansion revenue is leaking, sent to your inbox.
+[**Growth Audit**](https://jaymountconsulting.com/growth-audit) — where your go-to-market stack is leaking, sent to your inbox.
 
 That one does ask for an email, and it enrols you in a short follow-up on the same topic. Unsubscribe whenever.
 
