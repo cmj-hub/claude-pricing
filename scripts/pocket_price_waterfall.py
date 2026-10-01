@@ -31,6 +31,47 @@ import sys
 from pathlib import Path
 
 
+MAX_INPUT_BYTES = 2_000_000
+
+
+def fail_input(message: str) -> None:
+    print(f"error: {message}", file=sys.stderr)
+    raise SystemExit(2)
+
+
+def read_text(path: Path) -> str:
+    try:
+        if not path.exists():
+            fail_input(f"file not found: {path}")
+        if not path.is_file():
+            fail_input(f"not a file: {path}")
+        if path.stat().st_size > MAX_INPUT_BYTES:
+            fail_input(f"file is too large: {path}")
+        raw = path.read_bytes()
+    except SystemExit:
+        raise
+    except OSError:
+        fail_input(f"cannot read file: {path}")
+    if raw.startswith(b"\xef\xbb\xbf"):
+        raw = raw[3:]
+    try:
+        return raw.decode("utf-8")
+    except UnicodeDecodeError:
+        fail_input(f"file is not UTF-8 text: {path}")
+
+
+def write_output(path: str, text: str) -> None:
+    dest = Path(path)
+    try:
+        if dest.exists() and not dest.is_file():
+            fail_input(f"not a file: {path}")
+        dest.write_text(text)
+    except SystemExit:
+        raise
+    except OSError:
+        fail_input(f"cannot write output: {path}")
+
+
 # Carrying cost of receivables, used to dollarize payment-terms differences.
 # 30-day baseline; longer terms cost the seller more.
 COST_OF_CAPITAL_ANNUAL = 0.08  # 8% APR
@@ -163,22 +204,16 @@ def main():
     )
     args = p.parse_args()
 
-    in_path = Path(args.input)
-    if not in_path.exists():
-        print(f"Input file not found: {in_path}", file=sys.stderr)
-        sys.exit(1)
-
     per_customer = []
-    with in_path.open(newline="") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            try:
-                per_customer.append(compute_pocket(row))
-            except (ValueError, KeyError, json.JSONDecodeError) as e:
-                print(
-                    f"Skipping customer {row.get('customer_id', '?')}: {e}",
-                    file=sys.stderr,
-                )
+    reader = csv.DictReader(read_text(Path(args.input)).splitlines())
+    for row in reader:
+        try:
+            per_customer.append(compute_pocket(row))
+        except (ValueError, KeyError, json.JSONDecodeError):
+            print(
+                f"Skipping customer {row.get('customer_id', '?')}: bad number or missing column",
+                file=sys.stderr,
+            )
 
     cohort = aggregate_cohort(per_customer)
 
@@ -187,10 +222,11 @@ def main():
         "cohort": cohort,
     }
 
+    rendered = json.dumps(result, indent=2)
     if args.output:
-        Path(args.output).write_text(json.dumps(result, indent=2))
+        write_output(args.output, rendered)
     else:
-        print(json.dumps(result, indent=2))
+        print(rendered)
 
     if args.print_summary:
         print("\n— Pocket-Price Waterfall Summary —", file=sys.stderr)

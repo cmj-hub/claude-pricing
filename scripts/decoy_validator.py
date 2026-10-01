@@ -43,6 +43,66 @@ import sys
 from pathlib import Path
 
 
+MAX_INPUT_BYTES = 2_000_000
+
+
+def fail_input(message: str) -> None:
+    print(f"error: {message}", file=sys.stderr)
+    raise SystemExit(2)
+
+
+def read_text(path: Path) -> str:
+    try:
+        if not path.exists():
+            fail_input(f"file not found: {path}")
+        if not path.is_file():
+            fail_input(f"not a file: {path}")
+        if path.stat().st_size > MAX_INPUT_BYTES:
+            fail_input(f"file is too large: {path}")
+        raw = path.read_bytes()
+    except SystemExit:
+        raise
+    except OSError:
+        fail_input(f"cannot read file: {path}")
+    if raw.startswith(b"\xef\xbb\xbf"):
+        raw = raw[3:]
+    try:
+        return raw.decode("utf-8")
+    except UnicodeDecodeError:
+        fail_input(f"file is not UTF-8 text: {path}")
+
+
+def parse_json_text(text: str):
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        fail_input("invalid JSON")
+
+
+def read_stdin_text() -> str:
+    raw = sys.stdin.buffer.read(MAX_INPUT_BYTES + 1)
+    if len(raw) > MAX_INPUT_BYTES:
+        fail_input("input is too large")
+    if raw.startswith(b"\xef\xbb\xbf"):
+        raw = raw[3:]
+    try:
+        return raw.decode("utf-8")
+    except UnicodeDecodeError:
+        fail_input("input is not UTF-8 text")
+
+
+def write_output(path: str, text: str) -> None:
+    dest = Path(path)
+    try:
+        if dest.exists() and not dest.is_file():
+            fail_input(f"not a file: {path}")
+        dest.write_text(text)
+    except SystemExit:
+        raise
+    except OSError:
+        fail_input(f"cannot write output: {path}")
+
+
 def normalize_price_annual(price: float, cadence: str) -> float:
     if cadence == "annual":
         return price
@@ -200,24 +260,29 @@ def main():
     args = p.parse_args()
 
     if args.tiers == "-":
-        data = json.load(sys.stdin)
+        data = parse_json_text(read_stdin_text())
     else:
-        path = Path(args.tiers)
-        if not path.exists():
-            print(f"File not found: {path}", file=sys.stderr)
-            sys.exit(1)
-        data = json.loads(path.read_text())
+        data = parse_json_text(read_text(Path(args.tiers)))
 
+    if not isinstance(data, dict):
+        fail_input("JSON must be an object")
     tiers = data.get("tiers", [])
+    if not isinstance(tiers, list) or not all(isinstance(tier, dict) for tier in tiers):
+        fail_input("tiers must be a list of objects")
     if not tiers:
         print("No tiers provided.", file=sys.stderr)
         sys.exit(1)
 
-    result = run_checks(tiers)
+    try:
+        result = run_checks(tiers)
+    except (KeyError, TypeError, ValueError, ZeroDivisionError):
+        fail_input(
+            "each tier needs price, cadence, value_metric_unit, and value_metric_quantity"
+        )
     out = json.dumps(result, indent=2)
 
     if args.output:
-        Path(args.output).write_text(out)
+        write_output(args.output, out)
     else:
         print(out)
 
