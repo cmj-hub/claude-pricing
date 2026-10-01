@@ -35,6 +35,47 @@ import sys
 from pathlib import Path
 
 
+MAX_INPUT_BYTES = 2_000_000
+
+
+def fail_input(message: str) -> None:
+    print(f"error: {message}", file=sys.stderr)
+    raise SystemExit(2)
+
+
+def read_text(path: Path) -> str:
+    try:
+        if not path.exists():
+            fail_input(f"file not found: {path}")
+        if not path.is_file():
+            fail_input(f"not a file: {path}")
+        if path.stat().st_size > MAX_INPUT_BYTES:
+            fail_input(f"file is too large: {path}")
+        raw = path.read_bytes()
+    except SystemExit:
+        raise
+    except OSError:
+        fail_input(f"cannot read file: {path}")
+    if raw.startswith(b"\xef\xbb\xbf"):
+        raw = raw[3:]
+    try:
+        return raw.decode("utf-8")
+    except UnicodeDecodeError:
+        fail_input(f"file is not UTF-8 text: {path}")
+
+
+def write_output(path: str, text: str) -> None:
+    dest = Path(path)
+    try:
+        if dest.exists() and not dest.is_file():
+            fail_input(f"not a file: {path}")
+        dest.write_text(text)
+    except SystemExit:
+        raise
+    except OSError:
+        fail_input(f"cannot write output: {path}")
+
+
 def cumulative_distribution(values: list, prices: list, direction: str) -> list:
     """
     Build a cumulative percentage at each price point.
@@ -165,29 +206,23 @@ def main():
     )
     args = p.parse_args()
 
-    path = Path(args.input)
-    if not path.exists():
-        print(f"Input not found: {path}", file=sys.stderr)
-        sys.exit(1)
-
     responses = []
-    with path.open(newline="") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            try:
-                responses.append({
-                    "respondent_id": row["respondent_id"],
-                    "psp": row.get("psp", "default"),
-                    "too_cheap": float(row["too_cheap"]),
-                    "bargain": float(row["bargain"]),
-                    "expensive": float(row["expensive"]),
-                    "too_expensive": float(row["too_expensive"]),
-                })
-            except (ValueError, KeyError) as e:
-                print(
-                    f"Skipping respondent {row.get('respondent_id', '?')}: {e}",
-                    file=sys.stderr,
-                )
+    reader = csv.DictReader(read_text(Path(args.input)).splitlines())
+    for row in reader:
+        try:
+            responses.append({
+                "respondent_id": row["respondent_id"],
+                "psp": row.get("psp", "default"),
+                "too_cheap": float(row["too_cheap"]),
+                "bargain": float(row["bargain"]),
+                "expensive": float(row["expensive"]),
+                "too_expensive": float(row["too_expensive"]),
+            })
+        except (ValueError, KeyError):
+            print(
+                f"Skipping respondent {row.get('respondent_id', '?')}: bad number or missing column",
+                file=sys.stderr,
+            )
 
     if args.per_psp:
         by_psp = {}
@@ -202,7 +237,7 @@ def main():
 
     out = json.dumps(result, indent=2)
     if args.output:
-        Path(args.output).write_text(out)
+        write_output(args.output, out)
     else:
         print(out)
 
