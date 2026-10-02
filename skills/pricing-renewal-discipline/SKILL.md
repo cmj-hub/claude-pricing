@@ -1,5 +1,6 @@
 ---
 name: pricing-renewal-discipline
+models: ""
 description: Renewals + expansion as continuous pricing surgery. Designs the renewal-pricing motion (90-day-prior notice, value-anchored escalation rationale, grandfather policy), the expansion-pricing triggers (usage thresholds, role-change, outcome-attainment), and the contraction-policy guardrails (when a customer wants to downgrade — keep them vs lose them). Loaded by the main pricing skill when the operator asks about renewals, expansion pricing, or "how do I raise prices on existing customers."
 user-invocable: false
 allowed-tools: Read
@@ -9,6 +10,18 @@ license: MIT
 ---
 
 # Pricing Renewal Discipline — sub-skill
+
+## Contents
+
+- Activation
+- The renewal motion (5 rules)
+- The expansion motion
+- The contraction motion
+- Workflow
+- Self-check
+- Reference
+- If a step fails
+
 
 Renewals + expansion are where most pricing leaks. New-logo pricing
 gets attention; existing-customer pricing drifts.
@@ -192,3 +205,7 @@ a response from the table.
 - `../../pricing/references/pricing-framework.md` — operating practice
 - `../pricing-quarterly-review/SKILL.md` — where renewal performance gets reviewed
 - `../pricing-tribunal/SKILL.md` — for cross-base renewal policy changes
+
+## If a step fails
+
+Go back to step 1.

@@ -1,29 +1,30 @@
 ---
 name: pricing
-description: >
-  B2B pricing as a surgical discipline. Diagnose willingness-to-pay
-  distribution across PSPs, engineer value-metric alignment, design
-  three-tier contrast sets with decoy effect, build reference-frame
-  stacks (inertia / opportunity cost / replacement cost / competitor),
-  apply Prospect Theory loss aversion to pricing copy, run pocket-price
-  waterfall analysis to plug discount leaks, and operate quarterly
-  pricing reviews as the compounding moat. Anchors every recommendation
-  on Hermann Simon's foundational frame: a 1% price improvement drives
-  ~11% profit improvement on average B2B economics. Based on the JMC
-  Pricing Surgery course (jaymountconsulting.com/learn). Triggers on:
-  "pricing strategy", "raise prices", "pricing tiers", "price testing",
-  "willingness to pay", "value metric", "pricing page", "discount",
-  "pocket price", "decoy pricing", "anchor pricing", "loss aversion
-  pricing", "B2B pricing", "SaaS pricing", "services pricing", "renewal
-  pricing", "expansion pricing", "outcome-tied guarantee", "pricing
-  review".
+models: ""
+description: "B2B pricing as a surgical discipline. Diagnose willingness-to-pay distribution across PSPs, engineer value-metric alignment, design three-tier contrast sets with decoy effect, build reference-frame stacks (inertia / opportunity cost / replacement cost / competitor), apply Prospect Theory loss aversion to pricing copy, run pocket-price waterfall analysis to plug discount leaks, and operate quarterly pricing reviews as the compounding moat. Anchors every recommendation on Hermann Simon's foundational frame: a 1% price improvement drives ~11% profit improvement on average B2B economics. Use when the operator says: \"pricing strategy\", \"raise prices\", \"pricing tiers\", \"price testing\", \"willingness to pay\", \"value metric\", \"pricing page\", \"discount\", \"pocket price\", \"decoy pricing\", \"anchor pricing\", \"loss aversion pricing\", \"B2B pricing\", \"SaaS pricing\", \"services pricing\", \"renewal pricing\", \"expansion pricing\", \"outcome-tied guarantee\", \"pricing review\"."
 allowed-tools: Read Write Grep Glob
   - Bash
 license: MIT
 
 ---
 
+
 # Pricing — JMC Pricing Surgery Skill
+
+## Contents
+
+- Quick Reference
+- Core principles (the JMC stance)
+- Workflow router
+- Variables (sub-skills inherit these)
+- References
+- Sub-skills
+- Specialist agents
+- Free hosted version
+- Score the price
+- Pack files
+- If a step fails
+
 
 Comprehensive pricing orchestrator for B2B operators. Treats pricing
 as a surgical discipline — small precise cuts in the right place
@@ -143,3 +144,27 @@ Load these on demand for deeper context:
 The same job runs in a browser, no install and no key:
 [Pricing Page Lab](https://jaymountconsulting.com/tools/pricing-page-lab)
 
+
+## Score the price
+
+Run `python3 scripts/score_price.py --file draft.json`. Refuse a price with no metric. The passing draft prints the value metric, the contrast set, and the tribunal. Check again until the script exits 0.
+
+- [ ] Value metric is non-empty
+- [ ] Contrast set is a non-empty list
+- [ ] Tribunal is non-empty
+
+## Pack files
+
+- [Agents](../AGENTS.md)
+- [Changelog](../CHANGELOG.md)
+- [Contributing](../CONTRIBUTING.md)
+- [Soul](../SOUL.md)
+- [Bug report](../.github/ISSUE_TEMPLATE/bug_report.md)
+- [Feature request](../.github/ISSUE_TEMPLATE/feature_request.md)
+- [Pricing framework](references/pricing-framework.md)
+- [Banned patterns](references/pricing-banned-patterns.md)
+- [Lineage](references/pricing-lineage.md)
+
+## If a step fails
+
+Go back to step 1.

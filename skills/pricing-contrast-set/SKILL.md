@@ -1,5 +1,6 @@
 ---
 name: pricing-contrast-set
+models: ""
 description: Design the three-tier contrast-set architecture — decoy / target / anchor. Applies asymmetric dominance (Ariely) so the decoy makes the target obviously better, the anchor sets the high reference frame, and ~75% of buyers land on the target tier. Loaded by the main pricing skill when the operator asks to design tiers, redesign the pricing page, or apply the decoy effect. Outputs tier definitions, feature differentiation, value-metric scaling per tier, and the predicted landing distribution.
 user-invocable: false
 allowed-tools: Read
@@ -9,6 +10,17 @@ license: MIT
 ---
 
 # Pricing Contrast-Set — sub-skill
+
+## Contents
+
+- Activation
+- The architecture
+- Design rules
+- Workflow
+- Output format
+- References
+- If a step fails
+
 
 The three-tier architecture engine. The structure that outperforms
 two-tier and four-tier in 80%+ of B2B SaaS / services tests.
@@ -216,3 +228,7 @@ A/B TEST RECOMMENDED: yes (route to pricing-tribunal)
 - `../../pricing/references/decoy-effect-patterns.md` — asymmetric dominance patterns
 - `../pricing-reference-frames/SKILL.md` — anchor copy ABOVE the cards
 - `../pricing-tribunal/SKILL.md` — for ship-it test design
+
+## If a step fails
+
+Go back to step 1.

@@ -1,5 +1,18 @@
 # SOUL.md — Operator voice template (pricing section)
 
+## Contents
+
+- Who I am
+- Who I'm pricing for
+- My stance on pricing
+- How I talk about price
+- Phrases I use a lot when talking about pricing
+- Phrases I refuse
+- Stories I lean on
+- Topics I will NOT recommend on
+- How the skill uses this file
+
+
 This file is the **operator's voice** — separate from JMC's brand
 voice. Skills load this to write in your style, not Jay's style.
 Copy this template to `SOUL.md` in your project root, fill in the

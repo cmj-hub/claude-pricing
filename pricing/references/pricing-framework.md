@@ -1,5 +1,19 @@
 # The JMC Pricing Surgery Framework
 
+## Contents
+
+- The frame
+- The three diagnostic surfaces
+- The reference-frame stack
+- Prospect Theory applied
+- Value-metric engineering
+- The pocket-price waterfall
+- Three-tier contrast-set architecture
+- Pricing-page A/B as falsifiable hypothesis discipline
+- The pricing decision tribunal
+- Lineage
+
+
 > The full framework. Sub-skills load slices of this on demand.
 
 ---

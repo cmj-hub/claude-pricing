@@ -1,5 +1,6 @@
 ---
 name: pricing-reference-frames
+models: ""
 description: Design the reference-frame stack for pricing copy. Picks the strongest plausible anchor (inertia / opportunity cost / replacement cost / competitor) for the operator's PSP segment, generates the anchor copy block, and applies Prospect Theory loss-aversion patterns so the page reads "worth it or refund" rather than "save 40%." Loaded by the main pricing skill when the operator asks about anchoring, framing, or rewriting pricing copy.
 user-invocable: false
 allowed-tools: Read Write
@@ -9,6 +10,16 @@ license: MIT
 ---
 
 # Pricing Reference Frames — sub-skill
+
+## Contents
+
+- Activation
+- The reference-frame stack
+- Workflow
+- Output format
+- References
+- If a step fails
+
 
 The anchor design engine. Most pricing pages anchor on competitor
 cost — the weakest frame in the stack. This sub-skill picks the
@@ -200,3 +211,7 @@ LOSS-AVERSION APPLICATION:
 - `../../pricing/references/pricing-framework.md` — full reference-frame stack
 - `../../pricing/references/pricing-banned-patterns.md` — what to avoid
 - `../pricing-contrast-set/SKILL.md` — next: design the tier cards under the anchor
+
+## If a step fails
+
+Go back to step 1.

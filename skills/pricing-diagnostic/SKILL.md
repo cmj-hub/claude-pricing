@@ -1,5 +1,6 @@
 ---
 name: pricing-diagnostic
+models: ""
 description: The three-surface pricing diagnostic — willingness-to-pay distribution, value-metric alignment, and packaging-vs-pricing diagnosis. Loaded by the main pricing skill when the operator asks "should I raise prices", "where am I leaving money on the table", or "diagnose my pricing." Outputs a diagnostic report with surface-level scores (0-100 per surface), top 3 leaks, and a triage decision (price-tune / package-rebuild / metric-shift / hold).
 user-invocable: false
 allowed-tools: Read Write
@@ -9,6 +10,15 @@ license: MIT
 ---
 
 # Pricing Diagnostic — sub-skill
+
+## Contents
+
+- Activation
+- Workflow
+- Self-check
+- References
+- If a step fails
+
 
 The core diagnostic engine. Before any pricing change, this
 sub-skill runs three surfaces in order and outputs a triage
@@ -169,3 +179,7 @@ Before delivering the report:
 - `../../pricing/references/decoy-effect-patterns.md` — packaging diagnostics
 - `../pricing-audit/SKILL.md` — the 30-point audit (next step for high-stakes diagnoses)
 - `../pricing-tribunal/SKILL.md` — for material change decisions
+
+## If a step fails
+
+Go back to step 1.

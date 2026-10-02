@@ -1,5 +1,27 @@
 # Pricing patterns the skill refuses to produce
 
+## Contents
+
+- Banned: Cost-plus pricing
+- Banned: Competitor-anchored pricing
+- Banned: Open-ended money-back guarantees
+- Banned: "Contact us for pricing"
+- Banned: Two-tier pricing without a decoy
+- Banned: Four-or-more-tier pricing
+- Banned: Per-seat pricing when the value is not per-seat
+- Banned: Discounting without policy
+- Banned: Annual prepay with no real price difference
+- Banned: Raising prices without grandfathering
+- Banned: "Save 50% with this discount code"
+- Banned: Pricing copy that anchors on features
+- Banned: One-size-fits-all pricing across PSPs
+- Banned: "We'll figure pricing out later"
+- Banned: Decoy pricing without asymmetric dominance
+- Banned: Hidden fees / surprise charges
+- Banned: Auto-escalating prices without renewal notice
+- When the operator pushes back
+
+
 The skill pushes back with the JMC alternative when the operator asks
 for any of these. Many of them are common — that's why they're banned;
 they fail predictably.

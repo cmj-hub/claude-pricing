@@ -1,5 +1,6 @@
 ---
 name: pricing-tribunal
+models: ""
 description: The capstone workflow for high-stakes pricing decisions. Four stages — Hypothesize, Test, Adjudicate, Audit — that make material pricing changes safe to ship at speed. Loaded by the main pricing skill when the operator faces a decision material to ARR (new tiers, value-metric switch, raise-the-base, outcome guarantee, kill a tier, change discount policy). Outputs a tribunal-defensible pricing plan + verdict matrix + 30/60/90 audit cadence.
 user-invocable: false
 allowed-tools: Read
@@ -9,6 +10,17 @@ license: MIT
 ---
 
 # Pricing Tribunal — sub-skill
+
+## Contents
+
+- Activation
+- The four stages
+- Decision routing
+- Workflow
+- Self-check
+- Reference
+- If a step fails
+
 
 The high-stakes pricing decision workflow. When the change is
 material to ARR (>5% revenue impact OR affects >20% of customers
@@ -198,3 +210,7 @@ Confirm with the operator:
 - `../../pricing/references/pricing-framework.md` — the tribunal frame in context
 - `../pricing-audit/SKILL.md` — what feeds into the tribunal
 - `../pricing-pocket-waterfall/SKILL.md` — for routine discount-policy changes
+
+## If a step fails
+
+Go back to step 1.

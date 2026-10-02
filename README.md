@@ -2,7 +2,25 @@
   <img src="./assets/header.png" alt="claude-pricing — B2B pricing surgery: decoy validator, pocket-price waterfall, Hermann Simon" width="100%">
 </p>
 
-# claude-pricing
+# Price
+
+## Contents
+
+- What this replaces
+- Install
+- What you walk out with in 15 minutes
+- What this pack will not do
+- Is this just "raise prices 15%"?
+- Do I need survey data?
+- Does this change live prices?
+- Free, no signup
+- Free, by email
+- Companion packs
+- License
+- Regenerating the artwork
+
+
+You hold a value metric, a contrast set, and a tribunal. The scorer refuses a price with no metric.
 
 > "Raise prices 15%" is not a diagnosis. The leak is usually after the list price.
 
@@ -98,9 +116,6 @@ That one does ask for an email, and it enrols you in a short follow-up on the sa
 
 MIT. See [LICENSE](./LICENSE).
 
-## About
-
-Built by [Jay Mount Consulting](https://jaymountconsulting.com).
 
 ## Regenerating the artwork
 
