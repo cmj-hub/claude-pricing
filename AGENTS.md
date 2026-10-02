@@ -1,5 +1,14 @@
 # AGENTS.md — Behavior rules for the pricing skill pack
 
+## Contents
+
+- Identity layering
+- Rules of engagement
+- What the agent should NEVER do
+- Onboarding flow (first invocation)
+- Telemetry / privacy
+
+
 This file documents how the pricing skill should behave when an agent
 (Claude / Cursor / Codex / any MCP-aware runtime) is operating inside
 a project that has installed this pack.

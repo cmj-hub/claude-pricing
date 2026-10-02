@@ -1,5 +1,6 @@
 ---
 name: pricing-kickoff
+models: ""
 description: Adaptive router for the pricing skill pack. Detects the operator's current state (brand-config present? SOUL.md present? current tiers documented? WTP discovery done? PSP defined? value-metric chosen? reference anchor set? pocket-price waterfall built? quarterly review scheduled?) and picks the next-best step. Loaded by the main pricing skill on bare invocation ("/pricing") or when the operator asks "where do I start" / "what's next" / "first time using this."
 user-invocable: false
 allowed-tools: Read Glob
@@ -9,6 +10,17 @@ license: MIT
 ---
 
 # Pricing Kickoff — sub-skill
+
+## Contents
+
+- Activation
+- The 9-step state machine
+- Workflow
+- Output format
+- Self-check
+- Reference
+- If a step fails
+
 
 The adaptive entry point. The operator runs `/pricing` and this
 sub-skill detects state, surfaces a state checklist, and routes to
@@ -124,3 +136,7 @@ Before delivering the kickoff:
 - `../../pricing/SKILL.md` — the orchestrator
 - `../../pricing/references/pricing-framework.md` — full framework
 - `../pricing-onboarding/SKILL.md` — what runs if state is empty
+
+## If a step fails
+
+Go back to step 1.

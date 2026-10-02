@@ -1,5 +1,6 @@
 ---
 name: pricing-value-metric
+models: ""
 description: Pick the right value metric (price unit) for B2B pricing — per-seat, per-API-call, per-active-record, per-outcome, per-revenue-processed, hybrid. Diagnoses the operator's current metric vs the unit that scales with customer success, identifies gaming + misalignment failure modes, and outputs a recommended metric switch with the metric-shift case study reservoir. Loaded by the main pricing skill when the operator asks about per-seat vs per-X, value metric, price unit, or "should I change how I charge?"
 user-invocable: false
 allowed-tools: Read
@@ -9,6 +10,18 @@ license: MIT
 ---
 
 # Pricing Value Metric — sub-skill
+
+## Contents
+
+- Activation
+- The metric catalog
+- The right-metric rubric
+- The metric-shift case study reservoir
+- Workflow
+- Self-check
+- Reference
+- If a step fails
+
 
 The price-unit engine. The right value metric scales naturally with
 customer success — your revenue grows with their growth, automatically,
@@ -160,3 +173,7 @@ IF SHIFT:
 - `../../pricing/references/value-metric-catalog.md` — full metric catalog
 - `../../pricing/references/pricing-framework.md` — value-metric in context
 - `../pricing-tribunal/SKILL.md` — value-metric shifts are Strategic-tier; must tribunal
+
+## If a step fails
+
+Go back to step 1.

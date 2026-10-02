@@ -1,5 +1,12 @@
 # Pricing lineage — the thinkers this framework distills
 
+## Contents
+
+- Tier 1 — Foundational
+- Tier 2 — Practitioners
+- How to use this lineage
+
+
 The JMC Pricing Surgery framework synthesizes 70+ years of pricing
 thought. The agent loads slices of this on demand when citing
 mechanism or making a recommendation that relies on a specific
