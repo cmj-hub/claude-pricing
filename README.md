@@ -1,8 +1,10 @@
 <p align="center">
-  <img src="./assets/header.png" alt="claude-pricing — B2B pricing surgery: decoy validator, pocket-price waterfall, Hermann Simon" width="100%">
+  <img src="./assets/header.png" alt="Pricing strategy skill for Claude Code" width="100%">
 </p>
 
-# claude-pricing
+# Pricing strategy
+
+A pricing strategy is how you choose what to charge, what the price is compared with, and where the discount leaks.
 
 > "Raise prices 15%" is not a diagnosis. The leak is usually after the list price.
 
