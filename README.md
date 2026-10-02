@@ -2,7 +2,9 @@
   <img src="./assets/header.png" alt="claude-pricing — B2B pricing surgery: decoy validator, pocket-price waterfall, Hermann Simon" width="100%">
 </p>
 
-# Price
+# Pricing strategy
+
+A pricing strategy is how you choose what to charge, what the price is compared with, and where the discount leaks.
 
 ## Contents
 
