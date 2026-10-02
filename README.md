@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/header.png" alt="Pricing strategy skill for Claude Code" width="100%">
+  <img src="./assets/lockup.png" width="880" alt="Pricing strategy skill for Claude Code. A pricing strategy is how you choose what to charge, what the price is compared with, and where the discount leaks.">
 </p>
 
 # Pricing strategy skill for Claude Code
@@ -14,14 +14,7 @@ You already know the list price. You may not know the pocket price — what is l
 
 The mechanism is surgical, not theatrical. Willingness-to-pay. Value metric. Reference frame. Three-tier contrast with a real decoy. Pocket-price waterfall. `decoy_validator.py` on the sample healthy set scores **100**. The broken two-tier mixed-unit set scores **10.5**. Python. No LLM. No paid API.
 
-The build guide teaches the framework to a human. This pack teaches the same framework to an agent.
-
-[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-blue)](https://claude.ai/claude-code)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/cmj-hub/claude-pricing?style=social)](https://github.com/cmj-hub/claude-pricing)
-[![skills.sh](https://skills.sh/b/cmj-hub/claude-pricing)](https://skills.sh/cmj-hub/claude-pricing)
-![No paid APIs](https://img.shields.io/badge/paid%20APIs-none-success)
-![Install](https://img.shields.io/badge/install-npx%20skills-blue)
+The build guide teaches a human. The pack teaches an agent.
 
 <p align="center">
   <img src="./assets/demo.gif" alt="Pricing strategy skill — healthy tiers 100, broken tiers 10.5" width="100%">
@@ -33,18 +26,24 @@ A boutique pricing sprint's diagnostic week — not the political work of gettin
 
 ## Install
 
-Two commands. Works in Claude Code, Cursor, Codex, Grok, Copilot, Windsurf, Cline, OpenCode, and the rest of the [skills CLI](https://skills.sh) list.
-
 ```bash
 npx skills add cmj-hub/claude-pricing --all -g --full-depth
 ```
+
+`--all` writes this pack for every host the installer knows. One host:
+
+```bash
+npx skills add cmj-hub/claude-pricing --skill '*' -g --full-depth -y -a claude-code
+```
+
+Swap `claude-code` for `cursor`, `codex`, `grok`, `github-copilot`, `windsurf`, `cline`, or `opencode`.
+
+### Claude Code only
 
 ```text
 /plugin marketplace add cmj-hub/gtm-operator-skills
 /plugin install pricing
 ```
-
-Also: `npm install github:cmj-hub/claude-pricing` then `npx jmc-pricing`. Or `curl -fsSL https://raw.githubusercontent.com/cmj-hub/claude-pricing/main/install.sh | bash`.
 
 ## What you walk out with in 15 minutes
 
@@ -96,17 +95,11 @@ That one does ask for an email, and it enrols you in a short follow-up on the sa
 [**The Friday Signal**](https://jaymountconsulting.com/newsletter/signal) — one free edition a week on building GTM systems that compound. No pitch in it.
 
 
-## Companion packs
+## Next
 
-- [claude-psp](https://github.com/cmj-hub/claude-psp) — Ideal customer profile
-- [claude-evp](https://github.com/cmj-hub/claude-evp) — Value proposition
-- [claude-cold-email](https://github.com/cmj-hub/claude-cold-email) — Cold email
-- [claude-founder-brand](https://github.com/cmj-hub/claude-founder-brand) — LinkedIn posts
-- [claude-landing-page](https://github.com/cmj-hub/claude-landing-page) — Landing page
-- [claude-geo](https://github.com/cmj-hub/claude-geo) — Generative engine optimization
-- [claude-sales-offer](https://github.com/cmj-hub/claude-sales-offer) — Sales offer
-- [claude-prospect-list](https://github.com/cmj-hub/claude-prospect-list) — Sales prospecting
-- [claude-email-sequence](https://github.com/cmj-hub/claude-email-sequence) — Email sequence
+Previous: [Value proposition](https://github.com/cmj-hub/claude-evp)
+
+Next: [Sales offer](https://github.com/cmj-hub/claude-sales-offer)
 
 ## License
 
@@ -115,12 +108,3 @@ MIT. See [LICENSE](./LICENSE).
 ## About
 
 Built by [Jay Mount Consulting](https://jaymountconsulting.com).
-
-## Regenerating the artwork
-
-`assets/social-preview.png` and `assets/header.png` are generated from `assets/spec.json` by a vendored renderer — no CI, no shared workflow, no network beyond the webfonts:
-
-```bash
-node assets/card.mjs assets/spec.json assets/          # social-preview.png + header.png
-npm i playwright-core && node assets/demo.mjs assets/spec.json assets/demo.gif
-```
