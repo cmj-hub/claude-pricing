@@ -1,27 +1,27 @@
 {
   "renderer_version": 3,
-  "title": "Pricing Surgery",
-  "subtitle": "Value metric, reference frame, three-tier contrast, pocket-price leaks",
+  "title": "Pricing strategy",
+  "subtitle": "What you charge, what it is compared with, where the discount leaks.",
   "accent_color": "#CC4714",
   "tagline_top": "JMC Skill Pack",
-  "proof": "decoy_validator.py · pocket_price_waterfall.py · no LLM",
+  "proof": "decoy_validator.py · healthy 100 · broken 10.5 · no LLM",
   "cta": "jaymountconsulting.com/tools/pricing-page-lab",
   "command": "/pricing",
-  "user_prompt": "audit our pricing page",
+  "user_prompt": "score examples/tiers-healthy.json",
   "response_lines": [
-    "Reading current pricing page...",
-    "Diagnosing: 3 flat tiers, no asymmetric decoy",
-    "Anchor weak — no high-tier reference frame",
-    "Building pocket-price waterfall...",
-    "Prescription ready"
+    "Scoring examples/tiers-healthy.json",
+    "Three tiers · same metric: seat",
+    "Healthy set scored 100",
+    "Broken two-tier set scored 10.5",
+    "No LLM · no paid API"
   ],
   "artifact": {
-    "label": "pricing/prescription.md",
+    "label": "examples/tiers-healthy.json",
     "lines": [
-      "list_price      $1,800",
-      "− leakage         432   (18%)",
-      "+ value_floor     +60",
-      "= pocket_price  $1,521   (84.5% realized)"
+      "Starter  $99 monthly · 5 seats",
+      "Pro      $299 monthly · 25 seats",
+      "Scale    $999 monthly · 100 seats",
+      "score 100"
     ]
   }
 }
