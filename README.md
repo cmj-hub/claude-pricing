@@ -75,6 +75,12 @@ No for the first loop. The decoy validator runs on a three-tier JSON file. Van W
 
 No. It scores and recommends. Shipping the change — grandfathering, sales enablement, the email to the book — is your motion.
 
+## On the site
+
+- [Pricing Surgery pack](https://jaymountconsulting.com/skills/claude-pricing) — this pack's page
+- [Skill packs catalog](https://jaymountconsulting.com/skills) — install paths + every pack
+- [Course twin](https://jaymountconsulting.com/learn/courses/pricing-surgery) — human build guide for this pack
+
 ## Free, no signup
 
 - **[Pricing Page Lab](https://jaymountconsulting.com/tools/pricing-page-lab)** — the same job as this pack, hosted. No account, no key.
