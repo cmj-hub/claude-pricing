@@ -2,7 +2,7 @@
   <img src="./assets/header.png" alt="Pricing strategy skill for Claude Code" width="100%">
 </p>
 
-# Pricing strategy
+# Pricing strategy skill for Claude Code
 
 A pricing strategy is how you choose what to charge, what the price is compared with, and where the discount leaks.
 
@@ -16,6 +16,7 @@ The mechanism is surgical, not theatrical. Willingness-to-pay. Value metric. Ref
 
 The build guide teaches the framework to a human. This pack teaches the same framework to an agent.
 
+[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-blue)](https://claude.ai/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/cmj-hub/claude-pricing?style=social)](https://github.com/cmj-hub/claude-pricing)
 [![skills.sh](https://skills.sh/b/cmj-hub/claude-pricing)](https://skills.sh/cmj-hub/claude-pricing)
@@ -91,10 +92,15 @@ That one does ask for an email, and it enrols you in a short follow-up on the sa
 
 ## Companion packs
 
-- [claude-psp](https://github.com/cmj-hub/claude-psp) — Pain Signal Profile, the five-part buying brief
-- [claude-evp](https://github.com/cmj-hub/claude-evp) — 22-word Early Value Proposition per Schwartz tier
-- [claude-cold-email](https://github.com/cmj-hub/claude-cold-email) — signal, pain, EVP, binary ask
-- [claude-founder-brand](https://github.com/cmj-hub/claude-founder-brand) — Pillar / Proof / Process / Person
+- [claude-psp](https://github.com/cmj-hub/claude-psp) — Ideal customer profile
+- [claude-evp](https://github.com/cmj-hub/claude-evp) — Value proposition
+- [claude-cold-email](https://github.com/cmj-hub/claude-cold-email) — Cold email
+- [claude-founder-brand](https://github.com/cmj-hub/claude-founder-brand) — LinkedIn posts
+- [claude-landing-page](https://github.com/cmj-hub/claude-landing-page) — Landing page
+- [claude-geo](https://github.com/cmj-hub/claude-geo) — Generative engine optimization
+- [claude-sales-offer](https://github.com/cmj-hub/claude-sales-offer) — Sales offer
+- [claude-prospect-list](https://github.com/cmj-hub/claude-prospect-list) — Sales prospecting
+- [claude-email-sequence](https://github.com/cmj-hub/claude-email-sequence) — Email sequence
 
 ## License
 
