@@ -3,7 +3,6 @@ name: pricing-tribunal
 description: The capstone workflow for high-stakes pricing decisions. Four stages — Hypothesize, Test, Adjudicate, Audit — that make material pricing changes safe to ship at speed. Loaded by the main pricing skill when the operator faces a decision material to ARR (new tiers, value-metric switch, raise-the-base, outcome guarantee, kill a tier, change discount policy). Outputs a tribunal-defensible pricing plan + verdict matrix + 30/60/90 audit cadence.
 user-invocable: false
 allowed-tools: Read
-  - Write
 license: MIT
 
 ---

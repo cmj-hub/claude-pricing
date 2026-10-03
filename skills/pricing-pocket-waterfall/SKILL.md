@@ -2,7 +2,7 @@
 name: pricing-pocket-waterfall
 description: Build and analyze the pocket-price waterfall — every step where margin leaks between list price and final pocket. Backed by a deterministic Python script that takes line-item discount data and produces the per-customer + cohort waterfall + leak ranking. Loaded by the main pricing skill when the operator asks "my discounts are eating margin", "where is margin leaking", "pocket price", or "discount policy review."
 user-invocable: false
-allowed-tools: Read Write Bash(python3 scripts/pocket_price_waterfall.py:*)
+allowed-tools: Read Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pocket_price_waterfall.py:*)
 license: MIT
 
 ---
@@ -62,7 +62,7 @@ finding. You can't manage what you can't measure.
 ### 2. Run the waterfall script
 
 ```bash
-python3 scripts/pocket_price_waterfall.py \
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pocket_price_waterfall.py \
   --input customers.csv \
   --output waterfall_report.json
 ```
