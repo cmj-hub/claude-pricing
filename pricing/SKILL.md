@@ -18,7 +18,6 @@ description: >
   pricing", "expansion pricing", "outcome-tied guarantee", "pricing
   review".
 allowed-tools: Read Write Grep Glob
-  - Bash
 license: MIT
 
 ---
