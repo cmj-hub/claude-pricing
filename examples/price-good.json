@@ -1,0 +1,6 @@
+{
+  "price": 1200,
+  "value_metric": "per active record",
+  "contrast_set": ["Starter", "Growth", "Scale"],
+  "tribunal": "Hold the list price until the metric is on the page"
+}

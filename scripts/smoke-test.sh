@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Smoke-test the 3 deterministic scripts in claude-pricing.
+# Smoke-test the 4 deterministic scripts in claude-pricing.
 # Each must exit cleanly on known input and produce expected output shape.
 #
 # Runs in CI under GitHub Actions (Ubuntu, Python 3.12).
@@ -93,6 +93,13 @@ check "wtp-analyzer on 20-response cohort" \
   python3 "$SCRIPT_DIR/wtp_distribution.py" --input "$TMP_DIR/wtp.csv" --output "$TMP_DIR/wtp.json"
 check "output contains thresholds + acceptable_range" \
   bash -c "grep -q 'thresholds' '$TMP_DIR/wtp.json' && grep -q 'acceptable_range' '$TMP_DIR/wtp.json'"
+
+echo ""
+echo "=== score_price.py ==="
+check "complete price draft passes" \
+  python3 "$SCRIPT_DIR/score_price.py" --file "$SCRIPT_DIR/../examples/price-good.json"
+check "price with no metric is refused (exit 1)" \
+  bash -c "python3 '$SCRIPT_DIR/score_price.py' --file '$SCRIPT_DIR/../examples/price-no-metric.json' > /dev/null; [ \$? -eq 1 ]"
 
 echo ""
 echo "Passed: $PASSED"

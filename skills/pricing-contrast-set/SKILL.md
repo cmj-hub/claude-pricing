@@ -47,6 +47,8 @@ T2 price.                                    sometimes 5-10x.
 If T2 is per-seat, T1 and T3 must be per-seat. Don't mix
 per-seat with per-API-call across tiers — the buyer can't grok the
 comparison in <30 seconds.
+Every tier names its unit: `decoy_validator.py` fails this rule when
+a tier's `value_metric_unit` is empty.
 
 ### 2. Decoy is asymmetrically dominated
 

@@ -130,15 +130,21 @@ def check_three_tiers(tiers: list) -> dict:
 
 def check_same_metric(tiers: list) -> dict:
     units = {t["value_metric_unit"] for t in tiers}
-    passed = len(units) == 1
+    blank = any(not isinstance(u, str) or not u.strip() for u in units)
+    passed = len(units) == 1 and not blank
+    if passed:
+        detail = f"All tiers use '{list(units)[0]}'"
+    elif blank:
+        detail = "A tier has no value_metric_unit. A price needs a unit it is per."
+    else:
+        detail = (
+            f"Mixed units across tiers: {sorted(units)}. "
+            f"Buyer can't grok comparison."
+        )
     return {
         "rule": "same_value_metric",
         "passed": passed,
-        "detail": (
-            f"All tiers use '{list(units)[0]}'" if passed else
-            f"Mixed units across tiers: {sorted(units)}. "
-            f"Buyer can't grok comparison."
-        ),
+        "detail": detail,
         "weight": 20,
     }
 

@@ -56,6 +56,8 @@ python3 scripts/decoy_validator.py --tiers examples/tiers-healthy.json
 # score 100.0, "HEALTHY three-tier contrast set." — exit 0
 python3 scripts/decoy_validator.py --tiers examples/tiers-broken.json
 # score 10.5, "REBUILD — multiple structural failures." — exit 1
+python3 scripts/score_price.py --file examples/price-no-metric.json
+# refused: a price with no metric, no contrast set, no tribunal verdict — exit 1
 ```
 
 Run the decoy validator on the sample three-tier set. Then drop in yours. It prints the JSON report either way and exits 1 when the score is below 60, so it can gate a CI check or a pre-publish hook.
@@ -104,6 +106,10 @@ That one does ask for an email, and it enrols you in a short follow-up on the sa
 Previous: [Value proposition](https://github.com/cmj-hub/claude-evp)
 
 Next: [Sales offer](https://github.com/cmj-hub/claude-sales-offer)
+
+## Privacy and security
+
+Four stdlib Python scripts run locally on the files you pass them. No script opens a network connection. The skills read and write `brand-config.json`, `SOUL.md`, and draft JSON in your project; nothing else. The `pricing-reviewer` agent fetches a pricing page only when you give it the URL. No telemetry, no credentials, nothing sent or published. See [SECURITY.md](SECURITY.md).
 
 ## License
 

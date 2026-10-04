@@ -14,7 +14,7 @@ description: >
   guarantees, or a pricing review. Not for defining the Pain Signal
   Profile (use psp), writing the whole landing page (use
   landing-page), or the give-first first email (use sales-offer).
-allowed-tools: Read Write Grep Glob
+allowed-tools: Read Write Grep Glob Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/score_price.py:*)
 license: MIT
 models: ""
 
@@ -107,6 +107,20 @@ If any are missing for a real recommendation, ask — don't fabricate.
 If neither `customer.psps[]` nor `psp` exists, say the psp pack
 produces it (`/psp:psp`; install with
 `/plugin install psp@gtm-operator-skills`). Do not invent a PSP.
+
+## Score the price
+
+Before a price goes on a page or into an offer, write it as
+`price.json` (`price`, `value_metric`, `contrast_set`, `tribunal`) and run:
+
+```bash
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/score_price.py --file price.json
+```
+
+Exit 1 lists every reason it refused (a price with no metric, no
+contrast set, no tribunal verdict). Fix each one; never show a price
+without the unit it is per. Exit 2 is bad input. Example drafts:
+`examples/price-good.json`, `examples/price-no-metric.json`.
 
 ## Works with the suite
 

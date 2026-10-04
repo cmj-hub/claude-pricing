@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.5.0] — 2026-10-04
+
+A price never ships without its unit.
+
+### Added
+- `scripts/score_price.py` refuses a price with no value metric, a missing contrast set, or no tribunal verdict. Lists every reason; `--json` for the report. Exit 0 ok, 1 refused, 2 bad input.
+- `examples/price-good.json`, `examples/price-no-metric.json`, `tests/test_score_price.py`, and a smoke-test entry.
+- "Score the price" step in `pricing` and `pricing-value-metric`.
+- `SECURITY.md` and a Privacy and security section in the README.
+
+### Fixed
+- `decoy_validator.py` fails `same_value_metric` when a tier's `value_metric_unit` is empty or blank.
+- `tests/__pycache__/` is no longer tracked.
+
 ## [0.4.0] — 2026-10-04
 
 Suite pass. The main skill loads. Shared files merge, never overwrite.
