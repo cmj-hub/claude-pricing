@@ -2,7 +2,7 @@
 name: pricing-value-metric
 description: Pick the right value metric (price unit) for B2B pricing — per-seat, per-API-call, per-active-record, per-outcome, per-revenue-processed, hybrid. Diagnoses the operator's current metric vs the unit that scales with customer success, identifies gaming + misalignment failure modes, and outputs a recommended metric switch with the metric-shift case study reservoir. Loaded by the main pricing skill when the operator asks about per-seat vs per-X, value metric, price unit, or "should I change how I charge?"
 user-invocable: false
-allowed-tools: Read
+allowed-tools: Read Write Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/score_price.py:*)
 license: MIT
 models: ""
 
@@ -146,6 +146,19 @@ IF SHIFT:
   Strategic-tier under the risk taxonomy — never ship blind)
 ```
 
+### 6. Score the price
+
+Once a metric is chosen, put the price on it and check it. Write
+`price.json` with `price`, `value_metric`, `contrast_set`, and
+`tribunal`, then run:
+
+```bash
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/score_price.py --file price.json
+```
+
+Exit 1 means refused; it lists every reason (a price with no metric
+comes first). Fix and rerun before the price is shown.
+
 ## Self-check
 
 - [ ] 4-criterion check completed for current metric
@@ -154,6 +167,7 @@ IF SHIFT:
 - [ ] Recommendation is HOLD or SHIFT — not "try a few"
 - [ ] If SHIFT: case-study reservoir cited for predicted impact range
 - [ ] If SHIFT: routed to pricing-tribunal for test design
+- [ ] `score_price.py` exits 0 on the price draft
 
 ## Reference
 
