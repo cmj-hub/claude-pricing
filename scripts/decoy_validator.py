@@ -15,8 +15,11 @@ the JMC contrast-set rules:
      features)
 
 Usage:
-  python3 scripts/decoy_validator.py --tiers tiers.json
-  python3 scripts/decoy_validator.py --tiers - <<< '<inline JSON>'
+  python3 scripts/decoy_validator.py --file gtm/tiers.json
+  python3 scripts/decoy_validator.py --stdin < gtm/tiers.json
+  python3 scripts/decoy_validator.py --file gtm/tiers.json --format text
+
+`--tiers PATH` (and `--tiers -` for stdin) still works as an alias.
 
 Tier JSON format:
   {
@@ -33,8 +36,13 @@ Tier JSON format:
     ]
   }
 
-Returns: JSON with pass/fail per rule + an overall score 0-100.
-Exits 1 when the score is below 60 (REBUILD), 0 otherwise.
+Returns: JSON with pass/fail per rule + an overall score 0-100 (the
+default, kept for callers that parse it; `--json` asks for it
+explicitly). Each failing check carries a `fix`; the object carries
+`next`. `--format text` (or `--text`) prints `- <what is wrong> → <fix>`
+lines and a last `Next:` line instead.
+
+Exit codes: 0 score ≥60, 1 score below 60 (REBUILD), 2 bad input.
 
 Zero dependencies. Python 3.8+.
 """
@@ -45,6 +53,22 @@ from pathlib import Path
 
 
 MAX_INPUT_BYTES = 2_000_000
+
+NEXT_OK = "put the tiers in gtm/price.json and run score_price.py on it"
+NEXT_REFUSED = "fix the lines above and run this again."
+EPILOG = """example:
+  python3 scripts/decoy_validator.py --file examples/tiers-healthy.json --text
+
+exit codes: 0 score >=60, 1 score below 60 (REBUILD), 2 bad input"""
+
+FIXES = {
+    "three_tiers_only": "use exactly three tiers: decoy, target, anchor",
+    "same_value_metric": "price every tier per the same unit (one value_metric_unit)",
+    "decoy_asymmetrically_dominated": "give T1 less quantity than T2 and a subset of T2's features",
+    "anchor_at_least_3x_target": "raise T3 to at least 3x T2's annual price",
+    "per_unit_price_decreases_across_tiers": "lower the per-unit price at each step up",
+    "feature_count_grokable": "cut each tier to 6 distinguishing features or fewer",
+}
 
 
 def fail_input(message: str) -> None:
@@ -241,6 +265,9 @@ def run_checks(tiers: list) -> dict:
         check_per_unit_decreases(tiers),
         check_feature_count(tiers),
     ]
+    for c in checks:
+        if not c["passed"]:
+            c["fix"] = FIXES[c["rule"]]
     earned = sum(c["weight"] for c in checks if c["passed"])
     total = sum(c["weight"] for c in checks)
     score = round(earned / total * 100, 1) if total else 0
@@ -254,22 +281,47 @@ def run_checks(tiers: list) -> dict:
             else "ITERATE — real issues but structure is repairable."
             if score >= 60 else "REBUILD — multiple structural failures."
         ),
+        "next": NEXT_OK if score >= 60 else NEXT_REFUSED,
     }
 
 
+def format_text(result: dict) -> str:
+    lines = [f"score {result['score']} — {result['summary']}"]
+    for c in result["checks"]:
+        if not c["passed"]:
+            lines.append(f"- {c['detail']} → {c['fix']}")
+    lines.append(f"Next: {result['next']}")
+    return "\n".join(lines)
+
+
 def main():
-    p = argparse.ArgumentParser(description="Three-tier decoy validator")
-    p.add_argument(
-        "--tiers", required=True,
-        help="Path to JSON file with tier definitions, or '-' to read stdin",
+    p = argparse.ArgumentParser(
+        description="Three-tier decoy validator",
+        epilog=EPILOG,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    p.add_argument("--output", help="Output JSON path (default: stdout)")
+    p.add_argument("--file", help="Path to a JSON file with tier definitions (e.g. gtm/tiers.json)")
+    p.add_argument("--tiers", dest="file", help=argparse.SUPPRESS)
+    p.add_argument("--stdin", action="store_true", help="Read the tier JSON from stdin")
+    p.add_argument("--json", dest="format", action="store_const", const="json",
+                   help="Print one JSON object (the default)")
+    p.add_argument("--text", dest="format", action="store_const", const="text",
+                   help="Print human text instead of JSON")
+    p.add_argument("--format", dest="format", choices=["json", "text"], default="json",
+                   help="Output format (default: json)")
+    p.add_argument("--output", help="Write the output to this path instead of stdout")
+    p.set_defaults(format="json")
     args = p.parse_args()
 
-    if args.tiers == "-":
+    use_stdin = args.stdin or args.file == "-"
+    if args.stdin and args.file:
+        fail_input("pass --file or --stdin, not both")
+    if use_stdin:
         data = parse_json_text(read_stdin_text())
+    elif args.file:
+        data = parse_json_text(read_text(Path(args.file)))
     else:
-        data = parse_json_text(read_text(Path(args.tiers)))
+        fail_input("pass --file or --stdin")
 
     if not isinstance(data, dict):
         fail_input("JSON must be an object")
@@ -277,8 +329,7 @@ def main():
     if not isinstance(tiers, list) or not all(isinstance(tier, dict) for tier in tiers):
         fail_input("tiers must be a list of objects")
     if not tiers:
-        print("No tiers provided.", file=sys.stderr)
-        sys.exit(1)
+        fail_input("no tiers in the input")
 
     try:
         result = run_checks(tiers)
@@ -286,7 +337,7 @@ def main():
         fail_input(
             "each tier needs price, cadence, value_metric_unit, and value_metric_quantity"
         )
-    out = json.dumps(result, indent=2)
+    out = json.dumps(result, indent=2) if args.format == "json" else format_text(result)
 
     if args.output:
         write_output(args.output, out)

@@ -1,12 +1,7 @@
 ---
 name: pricing-reviewer
 description: >
-  Pricing-page + tier-architecture quality scorer. Scores a pricing
-  page or tier proposal 0-100 against the JMC pricing surgery
-  framework. Returns the score, the specific line-by-line failures
-  (with which JMC principle is violated), and the surgical rewrite
-  for each failed line. Use proactively after the operator drafts
-  a pricing page or tier proposal, before any A/B test or rollout.
+  Scores a pricing page or tier proposal 0-100 against the JMC pricing framework, with each failed line and its rewrite. Use when a pricing page or tiers are drafted, before a test or rollout.
 tools:
   - Read
   - Write
@@ -150,8 +145,8 @@ TOP 5 LINE-BY-LINE FAILURES:
 RECOMMENDED NEXT ACTION:
 
 {HOLD if ≥85, ITERATE if 65-84, REBUILD if <65}
-{specific sub-skill route — pricing-reference-frames /
-pricing-contrast-set / pricing-pocket-waterfall / pricing-tribunal}
+{specific mode route — anchor mode /
+tiers mode / waterfall mode / tribunal mode}
 ```
 
 ## Scoring thresholds
@@ -160,8 +155,8 @@ pricing-contrast-set / pricing-pocket-waterfall / pricing-tribunal}
 |---|---|---|
 | 85-100 | Healthy. Schedule next quarterly review. | Pricing Quarterly Review |
 | 65-84 | Real issues. Targeted iteration. | Route to the lowest-scoring sub-skill |
-| 40-64 | Structural problems. Rebuild needed. | pricing-tribunal for material change |
-| 0-39 | Pricing is broken. Diagnostic first. | pricing-diagnostic + psp pack (`/psp:psp`) |
+| 40-64 | Structural problems. Rebuild needed. | tribunal mode for material change |
+| 0-39 | Pricing is broken. Diagnostic first. | diagnose mode + psp pack (`/psp:psp`) |
 
 ## Self-check
 
@@ -172,7 +167,7 @@ Before delivering the review:
 - [ ] Score sums correctly per category + overall
 - [ ] Top 5 failures cited with verbatim line + JMC principle
 - [ ] Surgical rewrites are ≤30 words + better, not just different
-- [ ] Next action is specific (sub-skill route, not "improve pricing")
+- [ ] Next action is specific (mode route, not "improve pricing")
 - [ ] No fabricated quotes — if the page is too thin to score, flag it
 
 ## What you should NEVER do

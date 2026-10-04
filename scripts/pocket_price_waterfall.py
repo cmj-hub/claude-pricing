@@ -7,7 +7,11 @@ price per customer and the cohort-level waterfall. Ranks discount
 steps by total margin impact and identifies the top 3 leak sources.
 
 Usage:
-  python3 scripts/pocket_price_waterfall.py --input customers.csv --output waterfall.json
+  python3 scripts/pocket_price_waterfall.py --file gtm/waterfall.csv
+  python3 scripts/pocket_price_waterfall.py --stdin < gtm/waterfall.csv
+  python3 scripts/pocket_price_waterfall.py --file gtm/waterfall.csv --format text
+
+`--input PATH` still works as an alias for `--file`.
 
 CSV format (header row required):
   customer_id,list_price,cadence,discount_steps_json,payment_terms_days,implementation_fee,credits_applied
@@ -19,7 +23,13 @@ CSV format (header row required):
   - implementation_fee: float (one-time)
   - credits_applied: float (annual)
 
-Output: JSON with per-customer breakdown + cohort aggregates + leak ranking.
+Output: JSON with per-customer breakdown + cohort aggregates + leak
+ranking (the default, kept for callers that parse it; `--json` asks for
+it explicitly). The object carries `next`. `--format text` (or `--text`)
+prints the cohort totals, the top 3 leaks, and a last `Next:` line.
+
+Exit codes: 0 analyzed, 1 refused (no usable customer row), 2 bad input.
+Skipped rows are reported by row number, never by content.
 
 Zero dependencies. Python 3.8+.
 """
@@ -32,6 +42,26 @@ from pathlib import Path
 
 
 MAX_INPUT_BYTES = 2_000_000
+
+NEXT_OK = ("plug the top leak first; run /pricing:pricing tribunal if the "
+           "policy change touches more than 10% of customers")
+NEXT_REFUSED = "fix the lines above and run this again."
+EPILOG = """example:
+  python3 scripts/pocket_price_waterfall.py --file examples/waterfall-customers.csv --text
+
+exit codes: 0 analyzed, 1 refused (no usable customer row), 2 bad input"""
+
+
+def read_stdin_text() -> str:
+    raw = sys.stdin.buffer.read(MAX_INPUT_BYTES + 1)
+    if len(raw) > MAX_INPUT_BYTES:
+        fail_input("input is too large")
+    if raw.startswith(b"\xef\xbb\xbf"):
+        raw = raw[3:]
+    try:
+        return raw.decode("utf-8")
+    except UnicodeDecodeError:
+        fail_input("input is not UTF-8 text")
 
 
 def fail_input(message: str) -> None:
@@ -193,36 +223,92 @@ def aggregate_cohort(per_customer: list) -> dict:
     }
 
 
+def summary_lines(cohort: dict) -> list:
+    lines = [
+        f"Customers analyzed: {cohort.get('n_customers', 0)}",
+        f"Total list price (cohort): ${cohort.get('list_price_total', 0):,.2f}",
+        f"Total pocket price (cohort): ${cohort.get('pocket_price_total', 0):,.2f}",
+        f"Total leak: ${cohort.get('total_leak_dollar', 0):,.2f} "
+        f"({cohort.get('total_leak_pct', 0)}%)",
+        "",
+        "Top 3 leak sources:",
+    ]
+    for i, leak in enumerate(cohort.get("top_3_leaks", []), 1):
+        lines.append(
+            f"  {i}. {leak['step']}: ${leak['total_dollar_leak']:,.2f} "
+            f"({leak['customers_affected_pct']}% of customers, "
+            f"mean {leak['mean_pct_when_applied']}%)"
+        )
+    return lines
+
+
 def main():
-    p = argparse.ArgumentParser(description="Pocket-price waterfall calculator")
-    p.add_argument("--input", required=True, help="CSV file of customer data")
-    p.add_argument("--output", help="Output JSON path (default: stdout)")
+    p = argparse.ArgumentParser(
+        description="Pocket-price waterfall calculator",
+        epilog=EPILOG,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    p.add_argument("--file", help="CSV file of customer data (e.g. gtm/waterfall.csv)")
+    p.add_argument("--input", dest="file", help=argparse.SUPPRESS)
+    p.add_argument("--stdin", action="store_true", help="Read the CSV from stdin")
+    p.add_argument("--json", dest="format", action="store_const", const="json",
+                   help="Print one JSON object (the default)")
+    p.add_argument("--text", dest="format", action="store_const", const="text",
+                   help="Print human text instead of JSON")
+    p.add_argument("--format", dest="format", choices=["json", "text"],
+                   help="Output format (default: json)")
+    p.add_argument("--output", help="Write the output to this path instead of stdout")
     p.add_argument(
         "--print-summary",
         action="store_true",
         help="Print human-readable summary to stderr",
     )
+    p.set_defaults(format="json")
     args = p.parse_args()
 
+    if args.stdin and args.file:
+        fail_input("pass --file or --stdin, not both")
+    if args.stdin:
+        text = read_stdin_text()
+    elif args.file:
+        text = read_text(Path(args.file))
+    else:
+        fail_input("pass --file or --stdin")
+
     per_customer = []
-    reader = csv.DictReader(read_text(Path(args.input)).splitlines())
-    for row in reader:
+    reader = csv.DictReader(text.splitlines())
+    for line_no, row in enumerate(reader, start=2):
         try:
             per_customer.append(compute_pocket(row))
-        except (ValueError, KeyError, json.JSONDecodeError):
+        except (ValueError, KeyError, TypeError, AttributeError,
+                ZeroDivisionError, json.JSONDecodeError):
             print(
-                f"Skipping customer {row.get('customer_id', '?')}: bad number or missing column",
+                f"Skipping row {line_no}: bad number or missing column",
                 file=sys.stderr,
             )
 
     cohort = aggregate_cohort(per_customer)
+    refused = not per_customer
 
     result = {
         "per_customer": per_customer,
         "cohort": cohort,
+        "next": NEXT_REFUSED if refused else NEXT_OK,
     }
+    if refused:
+        result["fixes"] = [
+            "give each row customer_id, list_price, cadence (monthly or annual), "
+            "and discount_steps_json as a JSON list"
+        ]
 
-    rendered = json.dumps(result, indent=2)
+    if args.format == "json":
+        rendered = json.dumps(result, indent=2)
+    else:
+        lines = [] if refused else summary_lines(cohort)
+        if refused:
+            lines.append(f"- no usable customer row → {result['fixes'][0]}")
+        lines.append(f"Next: {result['next']}")
+        rendered = "\n".join(lines)
     if args.output:
         write_output(args.output, rendered)
     else:
@@ -230,33 +316,9 @@ def main():
 
     if args.print_summary:
         print("\n— Pocket-Price Waterfall Summary —", file=sys.stderr)
-        print(
-            f"Customers analyzed: {cohort.get('n_customers', 0)}",
-            file=sys.stderr,
-        )
-        print(
-            f"Total list price (cohort): ${cohort.get('list_price_total', 0):,.2f}",
-            file=sys.stderr,
-        )
-        print(
-            f"Total pocket price (cohort): ${cohort.get('pocket_price_total', 0):,.2f}",
-            file=sys.stderr,
-        )
-        print(
-            f"Total leak: ${cohort.get('total_leak_dollar', 0):,.2f} "
-            f"({cohort.get('total_leak_pct', 0)}%)",
-            file=sys.stderr,
-        )
-        print(file=sys.stderr)
-        print("Top 3 leak sources:", file=sys.stderr)
-        for i, leak in enumerate(cohort.get("top_3_leaks", []), 1):
-            print(
-                f"  {i}. {leak['step']}: ${leak['total_dollar_leak']:,.2f} "
-                f"({leak['customers_affected_pct']}% of customers, "
-                f"mean {leak['mean_pct_when_applied']}%)",
-                file=sys.stderr,
-            )
+        print("\n".join(summary_lines(cohort)), file=sys.stderr)
+    return 1 if refused else 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

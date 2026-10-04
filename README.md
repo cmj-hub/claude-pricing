@@ -6,6 +6,25 @@
 
 A pricing strategy is how you choose what to charge, what the price is compared with, and where the discount leaks.
 
+## In 60 seconds
+
+```text
+/plugin marketplace add cmj-hub/gtm-operator-skills
+/plugin install pricing@gtm-operator-skills
+/pricing:pricing
+```
+
+Or score the sample without an agent:
+
+```bash
+python3 scripts/score_price.py --file examples/price-good.json       # exit 0, prints "value metric: per active record" ... "Next: /landing-page:page ..."
+python3 scripts/score_price.py --file examples/price-no-metric.json  # exit 1: - a price with no metric → add value_metric, the unit the price is per
+```
+
+Part of the GTM operator suite — `/plugin install gtm@gtm-operator-skills` installs all ten.
+
+One command, eleven modes: `/pricing:pricing [status | setup | diagnose | audit | tiers | anchor | waterfall | value-metric | tribunal | review | renewal]`. No argument runs `status`. Moved in 0.6.0: the former `pricing-*` sub-skills are these modes now.
+
 > "Raise prices 15%" is not a diagnosis. The leak is usually after the list price.
 
 Pricing surgery treats price as the highest-leverage B2B lever: diagnose willingness-to-pay, pick the value metric, set a reference frame, build a three-tier contrast set, then plug discount leaks. A 1% price improvement is ~11% profit on typical B2B economics (Simon).
@@ -38,29 +57,20 @@ npx skills add cmj-hub/claude-pricing --skill '*' -g --full-depth -y -a claude-c
 
 Swap `claude-code` for `cursor`, `codex`, `grok`, `github-copilot`, `windsurf`, `cline`, or `opencode`.
 
-### Claude Code only
-
-```text
-/plugin marketplace add cmj-hub/gtm-operator-skills
-/plugin install pricing@gtm-operator-skills
-```
-
-Then run `/pricing:pricing`.
-
 ## What you walk out with in 15 minutes
 
 Artifact: `examples/tiers-healthy.json`.
 
 ```bash
-python3 scripts/decoy_validator.py --tiers examples/tiers-healthy.json
-# score 100.0, "HEALTHY three-tier contrast set." — exit 0
-python3 scripts/decoy_validator.py --tiers examples/tiers-broken.json
-# score 10.5, "REBUILD — multiple structural failures." — exit 1
+python3 scripts/decoy_validator.py --file examples/tiers-healthy.json --text
+# score 100.0 — HEALTHY three-tier contrast set. — exit 0
+python3 scripts/decoy_validator.py --file examples/tiers-broken.json --text
+# score 10.5 — REBUILD, one "- what is wrong → what to change" line per failed check — exit 1
 python3 scripts/score_price.py --file examples/price-no-metric.json
 # refused: a price with no metric, no contrast set, no tribunal verdict — exit 1
 ```
 
-Run the decoy validator on the sample three-tier set. Then drop in yours. It prints the JSON report either way and exits 1 when the score is below 60, so it can gate a CI check or a pre-publish hook.
+Run the decoy validator on the sample three-tier set. Then drop in yours. It prints the JSON report by default (`--text` for lines) and exits 1 when the score is below 60, so it can gate a CI check or a pre-publish hook. Every script takes `--file PATH` or `--stdin` (the old `--tiers` / `--input` flags still work), exits 0 ok, 1 refused, 2 bad input, and ends with the next step. The skill saves drafts in `gtm/` at your project root: `gtm/price.json`, `gtm/tiers.json`, `gtm/waterfall.csv`, `gtm/wtp.csv`.
 
 ## What this pack will not do
 
@@ -109,7 +119,7 @@ Next: [Sales offer](https://github.com/cmj-hub/claude-sales-offer)
 
 ## Privacy and security
 
-Four stdlib Python scripts run locally on the files you pass them. No script opens a network connection. The skills read and write `brand-config.json`, `SOUL.md`, and draft JSON in your project; nothing else. The `pricing-reviewer` agent fetches a pricing page only when you give it the URL. No telemetry, no credentials, nothing sent or published. See [SECURITY.md](SECURITY.md).
+Four stdlib Python scripts run locally on the files you pass them. No script opens a network connection. The skills read and write `brand-config.json`, `SOUL.md`, and drafts in `gtm/` in your project; nothing else. The `pricing-reviewer` agent fetches a pricing page only when you give it the URL. No telemetry, no credentials, nothing sent or published. See [SECURITY.md](SECURITY.md).
 
 ## License
 

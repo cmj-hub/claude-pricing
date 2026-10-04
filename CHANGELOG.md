@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.6.0] — 2026-10-04
+
+One skill, eleven modes. Drafts live in `gtm/`. Every script says what to do next.
+
+### Moved
+- `pricing/SKILL.md` → `skills/pricing/SKILL.md`; `pricing/references/` → `skills/pricing/references/`. `plugin.json` drops the `skills` key (default discovery).
+- The eleven sub-skills are now mode files under `skills/pricing/modes/`, read on demand. Type `/pricing:pricing <mode>`:
+  `pricing-kickoff` → `status`, `pricing-onboarding` → `setup`, `pricing-diagnostic` → `diagnose`, `pricing-audit` → `audit`, `pricing-contrast-set` → `tiers`, `pricing-reference-frames` → `anchor`, `pricing-pocket-waterfall` → `waterfall`, `pricing-value-metric` → `value-metric`, `pricing-tribunal` → `tribunal`, `pricing-quarterly-review` → `review`, `pricing-renewal-discipline` → `renewal`.
+- Drafts: `price.json` → `gtm/price.json`, `tiers.json` → `gtm/tiers.json`, `customers.csv` → `gtm/waterfall.csv`, `responses.csv` → `gtm/wtp.csv`.
+
+### Added
+- `argument-hint` and a `$ARGUMENTS` routing table on `/pricing:pricing`; no argument runs `status`. Always-on cost drops from ~2,495 to ~325 tokens (agent descriptions trimmed too).
+- Setup mode points to `/gtm:setup` for the shared `operator` / `icp` fields and asks only those gaps inline when the gtm plugin is not installed.
+- All four scripts take `--file PATH` and `--stdin`; `--tiers` and `--input` remain as hidden aliases. `--json` everywhere; `--text` / `--format text` on the three JSON-default scripts. `--help` shows an example.
+- Refusals read `- what is wrong → what to change` and end with `Next: fix the lines above and run this again.`; a pass ends with the next step. JSON gains `next`, plus `fixes` (score_price, wtp, waterfall) or a per-check `fix` (decoy_validator). Existing keys are unchanged.
+- `examples/wtp-responses.csv`, `examples/waterfall-customers.csv`, `tests/test_cli.py`, smoke-test entries.
+- `evals/`: five trigger cases and one near-miss (give-first email → sales-offer). `.github/workflows/evals.yml` runs them on manual dispatch only.
+- README "In 60 seconds".
+
+### Changed
+- `decoy_validator.py`: an empty tier list is bad input (exit 2), not a refusal.
+- `wtp_distribution.py`: exits 1 when fewer than 5 usable responses.
+- `pocket_price_waterfall.py`: exits 1 when no row is usable; a zero list price skips the row instead of crashing.
+- Skipped CSV rows are reported by row number, never by the respondent or customer id.
+
 ## [0.5.0] — 2026-10-04
 
 A price never ships without its unit.
