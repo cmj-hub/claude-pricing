@@ -13,7 +13,7 @@ Three files combine to define how the agent behaves:
 
 | File | Job | Owner | Per project? |
 |---|---|---|---|
-| `pricing/SKILL.md` (skill pack) | The JMC FRAMEWORK + structural rules | JMC (do not edit) | No — global |
+| `skills/pricing/SKILL.md` + `modes/` (skill pack) | The JMC FRAMEWORK + structural rules | JMC (do not edit) | No — global |
 | `SOUL.md` (project root) | The OPERATOR'S VOICE | You | Yes |
 | `brand-config.json` (project root) | The OPERATOR'S BRAND CONFIG | You | Yes |
 
@@ -26,7 +26,7 @@ list or the tribunal sign-off rules.
 ### 1. Always read brand-config.json + SOUL.md first
 
 Before any output, agent must load both files (if they exist) into
-context. If either is missing, route to `pricing-onboarding` — don't
+context. If either is missing, route to the `setup` mode — don't
 generate generic pricing.
 
 ### 2. Refuse to generate generic pricing
@@ -55,8 +55,8 @@ If a required input is missing, ASK. Don't paint over uncertainty.
 
 ### 5. Self-check every output
 
-Every output runs through the self-check rubric in its sub-skill
-SKILL.md before delivery. If checks fail, regenerate before showing
+Every output runs through the self-check rubric in its mode
+file before delivery. If checks fail, regenerate before showing
 the user.
 
 ### 6. Surface drafts as drafts
@@ -68,14 +68,14 @@ system. The operator owns the decision to publish.
 ### 7. The tribunal is not optional for Material+ changes
 
 Any pricing change that is Material or Strategic risk-tier MUST go
-through `pricing-tribunal` before rollout. The agent refuses to
+through the `tribunal` mode before rollout. The agent refuses to
 draft a "just do it" rollout for a Material change. Sign-off
 discipline is the safety mechanism.
 
-### 8. Sub-skills stay in their lane
+### 8. Modes stay in their lane
 
-When the orchestrator routes to a sub-skill, the sub-skill owns the
-workflow. Other sub-skills should not interject mid-flow.
+When the main skill routes to a mode, the mode owns the
+workflow. Other modes should not interject mid-flow.
 
 ### 9. Log decisions for audit
 
@@ -86,14 +86,14 @@ timestamp + inputs + output summary. The operator can review.
 
 ### 10. Failed-test registry is non-optional
 
-When a `pricing-tribunal` test results in ABANDON, the
+When a `tribunal` mode test results in ABANDON, the
 failed-test registry entry MUST be written. Even if it stings. The
 registry is the compounding moat.
 
 ## What the agent should NEVER do
 
 - Recommend pricing without a brand-config (refuse + route to onboarding)
-- Use banned patterns from `pricing/references/pricing-banned-patterns.md`
+- Use banned patterns from `skills/pricing/references/pricing-banned-patterns.md`
   even if the operator requests them — push back with the JMC alternative
 - Roll out a Material or Strategic pricing change without tribunal sign-off
 - Fabricate WTP / close-rate / discount-rate data
@@ -111,7 +111,7 @@ invocation:
 1. Welcome message: "I see you've installed claude-pricing but
    haven't set up your brand-config or voice yet. Want me to walk
    you through it now? (~10 minutes)"
-2. If yes → invoke `skills/pricing-onboarding`
+2. If yes → invoke the `setup` mode (`/pricing:pricing setup`)
 3. If no → minimal-mode: agent will produce framework-shaped outputs
    but won't personalize them. Warn the operator that the output
    will be generic.
@@ -120,8 +120,8 @@ invocation:
 
 No telemetry. No outbound calls. The pack runs locally.
 
-The 3 scripts (pocket_price_waterfall.py / decoy_validator.py /
-wtp_distribution.py) read local CSV/JSON and write local output.
+The 4 scripts (pocket_price_waterfall.py / decoy_validator.py /
+wtp_distribution.py / score_price.py) read local CSV/JSON and write local output.
 No network access.
 
 The pack does not call back to Jay Mount Consulting servers.

@@ -11,9 +11,9 @@ Checks one pricing draft before it goes on a page or into an offer:
 Every failing rule is reported, not just the first.
 
 Usage:
-  python3 scripts/score_price.py --file price.json
-  python3 scripts/score_price.py --stdin < price.json
-  python3 scripts/score_price.py --file price.json --json
+  python3 scripts/score_price.py --file gtm/price.json
+  python3 scripts/score_price.py --stdin < gtm/price.json
+  python3 scripts/score_price.py --file gtm/price.json --json
 
 Draft JSON format:
   {
@@ -26,6 +26,10 @@ Draft JSON format:
 `contrast_set` items may be strings or objects with a `name`.
 `tribunal` may be a string or a list of strings.
 
+Every refusal line reads `- <what is wrong> → <what to change>`. The last
+line names the next step. `--json` adds `fixes` (parallel to `reasons`)
+and `next`; the other keys are unchanged.
+
 Exit codes: 0 ok, 1 refused, 2 bad input. Bad input is never echoed.
 
 Zero dependencies. Python 3.8+. No network.
@@ -37,6 +41,21 @@ from pathlib import Path
 
 
 MAX_INPUT_BYTES = 2_000_000
+
+NEXT_OK = "/landing-page:page (put the price on the page with its unit)"
+NEXT_REFUSED = "fix the lines above and run this again."
+EPILOG = """example:
+  python3 scripts/score_price.py --file examples/price-good.json
+  python3 scripts/score_price.py --file examples/price-no-metric.json --json
+
+exit codes: 0 ok, 1 refused, 2 bad input"""
+
+FIXES = {
+    "a price with no metric": "add value_metric, the unit the price is per (e.g. \"per active record\")",
+    "no value metric": "add value_metric, the unit the price is per (e.g. \"per active record\")",
+    "no contrast set": "add contrast_set, the tiers or alternatives the buyer compares",
+    "no tribunal verdict": "add a tribunal verdict: what you decided and why, in one line",
+}
 
 
 def fail_input(message: str) -> None:
@@ -141,16 +160,21 @@ def check(data: dict) -> dict:
     return {
         "ok": not reasons,
         "reasons": reasons,
+        "fixes": [FIXES[r] for r in reasons],
         "value_metric": metric,
         "contrast_set": contrast,
         "tribunal": tribunal,
         "has_price": priced,
+        "next": NEXT_REFUSED if reasons else NEXT_OK,
     }
 
 
 def format_text(result: dict, price) -> str:
     if not result["ok"]:
-        return "\n".join(["refused:"] + [f"  - {r}" for r in result["reasons"]])
+        lines = ["refused:"]
+        lines += [f"- {r} → {f}" for r, f in zip(result["reasons"], result["fixes"])]
+        lines.append(f"Next: {NEXT_REFUSED}")
+        return "\n".join(lines)
     lines = [
         f"value metric: {result['value_metric']}",
         "contrast set: " + ", ".join(result["contrast_set"]),
@@ -158,14 +182,19 @@ def format_text(result: dict, price) -> str:
     ]
     if result["has_price"]:
         lines.append(f"price: {price} {result['value_metric']}")
+    lines.append(f"Next: {NEXT_OK}")
     return "\n".join(lines)
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description="Refuse a price with no value metric")
-    p.add_argument("--file", help="Path to a JSON pricing draft")
+    p = argparse.ArgumentParser(
+        description="Refuse a price with no value metric",
+        epilog=EPILOG,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    p.add_argument("--file", help="Path to a JSON pricing draft (e.g. gtm/price.json)")
     p.add_argument("--stdin", action="store_true", help="Read the JSON draft from stdin")
-    p.add_argument("--json", action="store_true", help="Print the result as JSON")
+    p.add_argument("--json", action="store_true", help="Print one JSON object instead of text")
     args = p.parse_args()
 
     if args.file and args.stdin:

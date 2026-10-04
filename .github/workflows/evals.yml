@@ -1,0 +1,26 @@
+name: evals
+
+# Manual only: each case calls the model and is billed to the key's account.
+# Normal CI does not run these.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  evals:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Skip without a key
+        if: env.ANTHROPIC_API_KEY == ''
+        run: echo "No ANTHROPIC_API_KEY secret; skipping evals."
+      - name: Install Claude Code
+        if: env.ANTHROPIC_API_KEY != ''
+        run: npm install -g @anthropic-ai/claude-code@2.1.289
+      - name: Run trigger evals
+        if: env.ANTHROPIC_API_KEY != ''
+        run: claude plugin eval . --trust-plugin --runs 1 --no-publish --threshold 0.8

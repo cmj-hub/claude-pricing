@@ -1,0 +1,5 @@
+customer_id,list_price,cadence,discount_steps_json,payment_terms_days,implementation_fee,credits_applied
+acme,1200,monthly,"[{""name"":""ramp"",""pct"":0.20,""reason"":""1st year""},{""name"":""volume"",""pct"":0.10,""reason"":""25 seats""}]",30,0,0
+beta,500,annual,"[{""name"":""strategic"",""pct"":0.15,""reason"":""design partner""}]",60,500,100
+gamma,2400,annual,"[]",30,0,0
+delta,800,monthly,"[{""name"":""ramp"",""pct"":0.25,""reason"":""competitive deal""},{""name"":""annual-prepay"",""pct"":0.10,""reason"":""paid upfront""}]",45,0,0

@@ -1,6 +1,6 @@
 {
   "name": "pricing",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Pricing surgery treats price as the highest-leverage B2B lever: diagnose willingness-to-pay, pick the value metric, set a reference frame, build a three-tier contrast set, then plug discount leaks. A 1% price improvement is ~11% profit on typical B2B economics (Simon).",
   "author": {
     "name": "Jay Mount Consulting",
@@ -19,9 +19,6 @@
     "gtm"
   ],
   "icon": ".claude-plugin/icon.png",
-  "skills": [
-    "./pricing/"
-  ],
   "documentationUrl": "https://github.com/cmj-hub/claude-pricing#readme",
   "supportUrl": "https://github.com/cmj-hub/claude-pricing/issues"
 }

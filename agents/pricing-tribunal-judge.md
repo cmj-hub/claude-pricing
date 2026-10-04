@@ -1,12 +1,7 @@
 ---
 name: pricing-tribunal-judge
 description: >
-  Adjudicates pricing hypotheses against the verdict matrix. Given a
-  pricing-tribunal hypothesis + test results, produces a structured
-  verdict: ROLL OUT / ITERATE / ABANDON, with rationale and the
-  failed-test registry entry if applicable. Use when a pricing-tribunal
-  test has completed its run and the operator needs an independent,
-  rubric-based adjudication before rollout.
+  Adjudicates a finished pricing test against the tribunal verdict matrix: ROLL OUT, ITERATE, or ABANDON, plus the failed-test registry entry. Use when a tribunal test has run and needs an independent verdict.
 tools:
   - Read
   - Write
@@ -25,7 +20,7 @@ operator hopes happened.
 ## When to invoke
 
 The operator has:
-- Run a pricing test through `pricing-tribunal`
+- Run a pricing test through the `tribunal` mode
 - Completed the predicted test window
 - Pulled the test results data
 - Needs a rubric-based adjudication before rollout decision

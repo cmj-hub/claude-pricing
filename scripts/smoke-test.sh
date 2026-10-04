@@ -102,6 +102,18 @@ check "price with no metric is refused (exit 1)" \
   bash -c "python3 '$SCRIPT_DIR/score_price.py' --file '$SCRIPT_DIR/../examples/price-no-metric.json' > /dev/null; [ \$? -eq 1 ]"
 
 echo ""
+echo "=== CLI convention (--file, --text, Next line) ==="
+EX="$SCRIPT_DIR/../examples"
+check "decoy-validator --file --text ends with Next" \
+  bash -c "python3 '$SCRIPT_DIR/decoy_validator.py' --file '$EX/tiers-healthy.json' --text | tail -1 | grep -q '^Next: '"
+check "wtp --file sample passes" \
+  python3 "$SCRIPT_DIR/wtp_distribution.py" --file "$EX/wtp-responses.csv" --text
+check "waterfall --file sample passes" \
+  python3 "$SCRIPT_DIR/pocket_price_waterfall.py" --file "$EX/waterfall-customers.csv" --text
+check "score_price refusal ends with Next" \
+  bash -c "python3 '$SCRIPT_DIR/score_price.py' --file '$EX/price-no-metric.json' | tail -1 | grep -q '^Next: fix the lines above'"
+
+echo ""
 echo "Passed: $PASSED"
 echo "Failed: $FAILED"
 [ "$FAILED" -eq 0 ]
