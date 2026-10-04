@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.4.0] — 2026-10-04
+
+Suite pass. The main skill loads. Shared files merge, never overwrite.
+
+### Fixed
+- `pricing/SKILL.md` now loads: `plugin.json` lists `"skills": ["./pricing/"]` (12 skills).
+- Malformed `allowed-tools` YAML in three sub-skills.
+- `decoy_validator.py` exits 1 when the score is below 60. Tests and smoke test cover it.
+- References pointed at three files that did not exist. They now link the matching sections of `pricing-framework.md`.
+- Sub-skills call bundled scripts via `${CLAUDE_PLUGIN_ROOT}/scripts/`.
+- `pricing-onboarding` can write the files it promises (`allowed-tools: Read Write`).
+
+### Changed
+- Main skill description says when to use it and what it is not for.
+- `models: ""` on every skill. References are markdown links; `SOUL.md` is linked.
+- Contents lists on `SOUL.md` and the three references.
+- Onboarding follows the shared-files contract: owns `customer` and `pricing`, fills gaps in `operator` / `icp`, never writes `psp`.
+- PSP reads fall back to the shared `psp` block. With no PSP, point at `/psp:psp` (`/plugin install psp@gtm-operator-skills`).
+- "Works with the suite" section (step 6).
+- README install uses `npx skills add`; the decoy validator example shows scores and exit codes.
+- `plugin.json`: repository, keywords, author url. Version 0.4.0.
+
 ## [0.3.0] — 2026-09-08
 
 Public magnet pass. Instrument stays public. First loop is 15 minutes.

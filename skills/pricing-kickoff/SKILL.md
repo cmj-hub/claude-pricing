@@ -4,6 +4,7 @@ description: Adaptive router for the pricing skill pack. Detects the operator's 
 user-invocable: false
 allowed-tools: Read Glob
 license: MIT
+models: ""
 
 ---
 
@@ -27,7 +28,7 @@ The main `pricing` skill routes here when:
 |---|---|---|---|
 | 1 | brand-config + SOUL set up | `brand-config.json` + `SOUL.md` exist | `pricing-onboarding` if either missing |
 | 2 | Current tiers documented | `brand-config.json` has `pricing.currentTiers[]` populated | `pricing-onboarding` (tier section) if missing |
-| 3 | PSP defined | `brand-config.json` has `customer.psps[]` populated | `claude-psp` companion pack if missing |
+| 3 | PSP defined | `brand-config.json` has `customer.psps[]` populated, or the shared `psp` block | psp pack (`/psp:psp`) if missing |
 | 4 | WTP discovery done | `brand-config.json` has `pricing.wtpResearch.lastConducted` < 12 months ago | `pricing-diagnostic` if missing/stale |
 | 5 | Value-metric chosen | `brand-config.json` has `pricing.valueMetric.unit` populated | `pricing-value-metric` if missing |
 | 6 | Reference anchor set | `brand-config.json` has `pricing.referenceAnchor.frame` populated | `pricing-reference-frames` if missing |
@@ -47,6 +48,7 @@ Read `brand-config.json` and `SOUL.md` if present:
 ```bash
 # Pseudo
 [ -f brand-config.json ] && jq -r '.pricing // {}' brand-config.json
+[ -f brand-config.json ] && jq -r '.customer.psps // .psp // empty' brand-config.json
 [ -f SOUL.md ] && grep -q "^## My stance on pricing" SOUL.md
 ```
 
@@ -72,9 +74,10 @@ Pricing setup — state check
 
 Recommended next step: Step 3 — define your Pain Signal Profile(s).
 Pricing decisions without a PSP anchor produce one-size-fits-none
-tiers. The companion claude-psp skill pack handles this in ~30 min.
+tiers. The psp pack handles this in ~30 min: /psp:psp
+(install: /plugin install psp@gtm-operator-skills).
 
-Want to install claude-psp and run the PSP workflow now? (y/n)
+Want to run the PSP workflow now? (y/n)
 ```
 
 ### 3. Route based on state
@@ -82,7 +85,7 @@ Want to install claude-psp and run the PSP workflow now? (y/n)
 | State | Action |
 |---|---|
 | Step 1 missing | Route to `pricing-onboarding` for full setup |
-| Steps 2-3 missing | Route to `pricing-onboarding` (tier section) + suggest claude-psp |
+| Steps 2-3 missing | Route to `pricing-onboarding` (tier section) + point at `/psp:psp` |
 | Steps 4-7 partial | Route to the lowest-numbered missing diagnostic step |
 | Steps 8-9 missing | Route to `pricing-contrast-set` or `pricing-quarterly-review` |
 | Everything done | Offer the "quarterly review" workflow + "what changed" diff |

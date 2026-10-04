@@ -4,6 +4,7 @@ description: Build and analyze the pocket-price waterfall — every step where m
 user-invocable: false
 allowed-tools: Read Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pocket_price_waterfall.py:*)
 license: MIT
+models: ""
 
 ---
 

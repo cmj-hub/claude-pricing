@@ -2,8 +2,9 @@
 name: pricing-onboarding
 description: First-run interactive setup for the pricing skill pack. Walks the operator through brand-config.json (current tiers, ICP, value metric, infrastructure) and the pricing section of SOUL.md (voice + stance on pricing + stories you cite) in ~10 minutes. Refuses to let the operator skip — generic pricing output is worse than no pricing output. Loaded automatically by the main pricing skill when brand-config.json or SOUL.md is missing.
 user-invocable: false
-allowed-tools: Read
+allowed-tools: Read Write
 license: MIT
+models: ""
 
 ---
 
@@ -11,8 +12,13 @@ license: MIT
 
 Interactive setup. ~10 minutes. Outputs:
 
-- `brand-config.json` at repo root (or merges into existing one)
-- `SOUL.md` at repo root with the pricing section filled in
+- `brand-config.json` at the project root — the `customer` and
+  `pricing` blocks, merged into the existing file
+- `SOUL.md` at the project root — the pricing sections, added or
+  updated in place
+
+Both files are shared by every pack in the GTM operator suite. This
+skill owns `customer` and `pricing` only.
 
 The skill REFUSES to draft real pricing recommendations until both
 files exist with the required pricing fields populated.
@@ -58,7 +64,13 @@ Ask in batches of 2-3, not one at a time:
 3. What's your average ACV today, and is it trending up, down, or flat in the last 6 months?
 
 **Batch 2 — Customers (3 questions):**
-4. Who's your primary Pain Signal Profile (PSP)? (1-2 sentences. If you've installed claude-psp, paste the PSP slug.)
+4. Who's your primary Pain Signal Profile (PSP)? If `customer.psps[]`
+   or the shared `psp` block already exists, read it back and ask the
+   operator to confirm instead. If neither exists, say the psp pack
+   produces it (`/psp:psp`; install with
+   `/plugin install psp@gtm-operator-skills`) and offer to run it
+   first. If the operator declines, take a 1-2 sentence working PSP
+   for `customer.psps[]` and mark it as unvalidated. Never invent one.
 5. What's your typical buyer's biggest pricing objection in cycle? (verbatim if you have it)
 6. What pricing did you walk away from in the last 6 months that you wish you'd held? (and why did you discount?)
 
@@ -91,13 +103,25 @@ C. What 2-3 stories or receipts do you cite when explaining why
 
 ### Step 4 — Write the files
 
-Write `brand-config.json` using the schema in
-`brand-config.example.json`. Populate the `pricing.*` fields with
-the operator's answers. Don't overwrite other sections if they
-exist; merge.
+Shared-files contract:
 
-Append the pricing-stance section to `SOUL.md` (or create the file
-with the pricing-stance section template).
+- One `brand-config.json` and one `SOUL.md` at the operator's project
+  root, shared by every pack.
+- Merge at the field level. Read the existing file first, add or
+  update only `customer` and `pricing`, and leave every other key
+  exactly as it was. Never rewrite the file from
+  `brand-config.example.json`; use it only as the shape reference.
+  Never delete another pack's keys (`psp`, `evp`, `tone`, ...).
+- Show the diff and ask before changing a field that already has a
+  value.
+- `operator` and `icp` are shared: fill gaps only.
+- Never write the `psp` block. The psp pack owns it.
+
+`SOUL.md`: append or update only the pricing sections from the
+template (`## My stance on pricing`, `## How I talk about price`,
+the phrases and stories sections). Never rewrite another pack's
+section. If the file does not exist, create it with the pricing
+sections only.
 
 ### Step 5 — Confirm + route
 
@@ -110,7 +134,7 @@ Show a summary:
 State check:
   ✅ Step 1 — brand-config + SOUL ready
   ✅ Step 2 — Current tiers documented
-  ⬜ Step 3 — Pain Signal Profile (recommend: install claude-psp)
+  ⬜ Step 3 — Pain Signal Profile (run /psp:psp)
   ⬜ Step 4 — WTP discovery (next: /pricing diagnose)
   ...
 
@@ -136,7 +160,8 @@ write half-filled files.
 ## Self-check
 
 - [ ] `brand-config.json` exists and parses as valid JSON
-- [ ] `brand-config.json` has populated `pricing.currentTiers`, `pricing.valueMetric`, `customer.psps[]`
+- [ ] `brand-config.json` has populated `pricing.currentTiers`, `pricing.valueMetric`, and `customer.psps[]` or the `psp` block
+- [ ] Every key outside `customer` and `pricing` is unchanged (gaps in `operator` / `icp` may be filled)
 - [ ] `SOUL.md` exists and has the pricing-stance section
 - [ ] Operator confirmed both files via `y` response
 - [ ] State checklist re-evaluated post-write

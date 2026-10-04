@@ -7,6 +7,12 @@ empirical result.
 
 ---
 
+## Contents
+
+- Tier 1 — Foundational
+- Tier 2 — Practitioners
+- How to use this lineage
+
 ## Tier 1 — Foundational
 
 ### Hermann Simon

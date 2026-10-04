@@ -27,13 +27,13 @@ A boutique pricing sprint's diagnostic week — not the political work of gettin
 ## Install
 
 ```text
-skills add cmj-hub/claude-pricing --all -g --full-depth
+npx skills add cmj-hub/claude-pricing --all -g --full-depth
 ```
 
 `--all` writes this pack for every host the installer knows. One host:
 
 ```text
-skills add cmj-hub/claude-pricing --skill '*' -g --full-depth -y -a claude-code
+npx skills add cmj-hub/claude-pricing --skill '*' -g --full-depth -y -a claude-code
 ```
 
 Swap `claude-code` for `cursor`, `codex`, `grok`, `github-copilot`, `windsurf`, `cline`, or `opencode`.
@@ -42,8 +42,10 @@ Swap `claude-code` for `cursor`, `codex`, `grok`, `github-copilot`, `windsurf`, 
 
 ```text
 /plugin marketplace add cmj-hub/gtm-operator-skills
-/plugin install pricing
+/plugin install pricing@gtm-operator-skills
 ```
+
+Then run `/pricing:pricing`.
 
 ## What you walk out with in 15 minutes
 
@@ -51,10 +53,12 @@ Artifact: `examples/tiers-healthy.json`.
 
 ```bash
 python3 scripts/decoy_validator.py --tiers examples/tiers-healthy.json
+# score 100.0, "HEALTHY three-tier contrast set." — exit 0
 python3 scripts/decoy_validator.py --tiers examples/tiers-broken.json
+# score 10.5, "REBUILD — multiple structural failures." — exit 1
 ```
 
-Run the decoy validator on the sample three-tier set. Then drop in yours.
+Run the decoy validator on the sample three-tier set. Then drop in yours. It prints the JSON report either way and exits 1 when the score is below 60, so it can gate a CI check or a pre-publish hook.
 
 ## What this pack will not do
 

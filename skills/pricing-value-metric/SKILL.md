@@ -4,6 +4,7 @@ description: Pick the right value metric (price unit) for B2B pricing — per-se
 user-invocable: false
 allowed-tools: Read
 license: MIT
+models: ""
 
 ---
 
@@ -76,7 +77,7 @@ From `brand-config.json`:
 
 - `pricing.valueMetric.unit` — current metric
 - `pricing.currentTiers` — current tier structure
-- `customer.psps[]`
+- `customer.psps[]` (fallback: the shared `psp` block)
 
 Also gather (ask if not in config):
 
@@ -156,6 +157,6 @@ IF SHIFT:
 
 ## Reference
 
-- `../../pricing/references/value-metric-catalog.md` — full metric catalog
+- `../../pricing/references/pricing-framework.md` ("Value-metric engineering") — full metric catalog
 - `../../pricing/references/pricing-framework.md` — value-metric in context
 - `../pricing-tribunal/SKILL.md` — value-metric shifts are Strategic-tier; must tribunal

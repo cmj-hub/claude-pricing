@@ -74,8 +74,8 @@ cat > "$TMP_DIR/tiers_broken.json" <<'JSON'
   ]
 }
 JSON
-check "decoy-validator on broken tiers" \
-  python3 "$SCRIPT_DIR/decoy_validator.py" --tiers "$TMP_DIR/tiers_broken.json" --output "$TMP_DIR/decoy_b.json"
+check "decoy-validator refuses broken tiers (exit 1)" \
+  bash -c "! python3 '$SCRIPT_DIR/decoy_validator.py' --tiers '$TMP_DIR/tiers_broken.json' --output '$TMP_DIR/decoy_b.json'"
 check "broken structure scores <60" \
   bash -c "python3 -c 'import json; d=json.load(open(\"$TMP_DIR/decoy_b.json\")); exit(0 if d[\"score\"] < 60 else 1)'"
 

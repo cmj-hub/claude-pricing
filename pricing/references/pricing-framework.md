@@ -4,6 +4,19 @@
 
 ---
 
+## Contents
+
+- The frame
+- The three diagnostic surfaces
+- The reference-frame stack
+- Prospect Theory applied
+- Value-metric engineering
+- The pocket-price waterfall
+- Three-tier contrast-set architecture
+- Pricing-page A/B as falsifiable hypothesis discipline
+- The pricing decision tribunal
+- Lineage
+
 ## The frame
 
 Pricing is the highest-leverage operational lever in the business and

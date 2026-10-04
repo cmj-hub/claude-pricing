@@ -2,8 +2,9 @@
 name: pricing-contrast-set
 description: Design the three-tier contrast-set architecture — decoy / target / anchor. Applies asymmetric dominance (Ariely) so the decoy makes the target obviously better, the anchor sets the high reference frame, and ~75% of buyers land on the target tier. Loaded by the main pricing skill when the operator asks to design tiers, redesign the pricing page, or apply the decoy effect. Outputs tier definitions, feature differentiation, value-metric scaling per tier, and the predicted landing distribution.
 user-invocable: false
-allowed-tools: Read
+allowed-tools: Read Write Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/decoy_validator.py:*)
 license: MIT
+models: ""
 
 ---
 
@@ -122,10 +123,24 @@ From `brand-config.json`:
 
 - `pricing.currentTiers` — present state
 - `pricing.valueMetric.unit` — the metric across tiers
-- `customer.psps[]` — who's buying which tier today
+- `customer.psps[]` (fallback: the shared `psp` block) — who's buying which tier today
 - Last 90 days of tier landing distribution (if tracked)
 
-### 2. Diagnose current tier health
+### 2. Validate the structure
+
+Write the current (or proposed) tiers to `tiers.json` in the shape of
+`${CLAUDE_PLUGIN_ROOT}/examples/tiers-healthy.json`, then run:
+
+```bash
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/decoy_validator.py --tiers tiers.json
+```
+
+It checks three tiers, one value metric, asymmetric dominance, a ≥3x
+anchor, falling per-unit price, and ≤6 distinguishing features. Exit 1
+means REBUILD. Fix the failed checks and run it again until it exits 0.
+Do not hand-score what the script scores.
+
+### 2b. Diagnose current tier health
 
 Run the tier landing check:
 
@@ -211,7 +226,8 @@ A/B TEST RECOMMENDED: yes (route to pricing-tribunal)
 
 ## References
 
-- `../../pricing/references/pricing-framework.md` — full contrast-set framework
-- `../../pricing/references/decoy-effect-patterns.md` — asymmetric dominance patterns
+- `../../pricing/references/pricing-framework.md` — full contrast-set framework (see "Three-tier contrast-set architecture")
+- `../../pricing/references/pricing-banned-patterns.md` — "Decoy pricing without asymmetric dominance"
+- `../../scripts/decoy_validator.py` — the structural check in step 2
 - `../pricing-reference-frames/SKILL.md` — anchor copy ABOVE the cards
 - `../pricing-tribunal/SKILL.md` — for ship-it test design

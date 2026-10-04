@@ -2,13 +2,27 @@
 
 This file is the **operator's voice** — separate from JMC's brand
 voice. Skills load this to write in your style, not Jay's style.
-Copy this template to `SOUL.md` in your project root, fill in the
-blanks, and the pricing skill pack will respect your voice in every
+One `SOUL.md` at your project root is shared by every pack in the
+suite. Add these pricing sections to it (or create it if it does not
+exist), fill in the blanks, and leave other packs' `## ` sections as
+they are. The pricing skill pack will respect your voice in every
 output.
 
 > The skill ships the framework. SOUL.md ships YOUR voice on top of it.
 
 ---
+
+## Contents
+
+- Who I am
+- Who I'm pricing for
+- My stance on pricing
+- How I talk about price
+- Phrases I use a lot when talking about pricing
+- Phrases I refuse
+- Stories I lean on
+- Topics I will NOT recommend on
+- How the skill uses this file
 
 ## Who I am
 
