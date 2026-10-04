@@ -8,6 +8,14 @@
     "calendar_url": "https://cal.com/yourname/intro"
   },
 
+  "psp": {
+    "signal_anchors": ["Hiring a second SDR manager in 6 months"],
+    "primary_pain": "Pipeline gap; existing demand-gen isn't producing enough SQLs",
+    "timing_trigger": "Board asks for a pipeline plan after a missed quarter",
+    "felt_pain_role": "VP Demand Gen",
+    "vocabulary": ["pipeline gap", "SDR ramp", "we keep closing wrong-fit logos"]
+  },
+
   "customer": {
     "psps": [
       {

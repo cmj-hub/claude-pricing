@@ -1,24 +1,22 @@
 ---
 name: pricing
 description: >
-  B2B pricing as a surgical discipline. Diagnose willingness-to-pay
-  distribution across PSPs, engineer value-metric alignment, design
-  three-tier contrast sets with decoy effect, build reference-frame
-  stacks (inertia / opportunity cost / replacement cost / competitor),
-  apply Prospect Theory loss aversion to pricing copy, run pocket-price
-  waterfall analysis to plug discount leaks, and operate quarterly
-  pricing reviews as the compounding moat. Anchors every recommendation
-  on Hermann Simon's foundational frame: a 1% price improvement drives
-  ~11% profit improvement on average B2B economics. Based on the JMC
-  Pricing Surgery course (jaymountconsulting.com/learn). Triggers on:
-  "pricing strategy", "raise prices", "pricing tiers", "price testing",
-  "willingness to pay", "value metric", "pricing page", "discount",
-  "pocket price", "decoy pricing", "anchor pricing", "loss aversion
-  pricing", "B2B pricing", "SaaS pricing", "services pricing", "renewal
-  pricing", "expansion pricing", "outcome-tied guarantee", "pricing
-  review".
+  B2B pricing surgery: diagnose willingness-to-pay across PSPs, pick the
+  value metric, build a reference-frame stack (inertia / opportunity
+  cost / replacement cost / competitor), design a three-tier contrast
+  set with a real decoy, apply loss aversion to pricing copy, plug
+  discount leaks with a pocket-price waterfall, and run quarterly
+  pricing reviews. Anchors on Hermann Simon: a 1% price improvement is
+  ~11% profit on typical B2B economics. Use when the operator asks
+  about pricing strategy, raising prices, pricing tiers, price testing,
+  willingness to pay, value metric, discounts, pocket price, decoy or
+  anchor pricing, renewal or expansion pricing, outcome-tied
+  guarantees, or a pricing review. Not for defining the Pain Signal
+  Profile (use psp), writing the whole landing page (use
+  landing-page), or the give-first first email (use sales-offer).
 allowed-tools: Read Write Grep Glob
 license: MIT
+models: ""
 
 ---
 
@@ -97,7 +95,7 @@ sub-skills:
 
 | Variable | Source | Example |
 |---|---|---|
-| `psp` | Pain Signal Profile (from companion claude-psp pack) | "Series-B SaaS, demand-gen lead, pipeline gap" |
+| `psp` | `customer.psps[]`; if empty, the shared `psp` block written by the psp pack | "Series-B SaaS, demand-gen lead, pipeline gap" |
 | `currentTiers` | Operator's pricing page | "$99 / $299 / $999 monthly" |
 | `valueMetric` | What scales with customer success | "Active records / API calls / seats / outcomes" |
 | `wtpDistribution` | Discovered via Van Westendorp / Gabor-Granger / conjoint | "P10=$50, P50=$200, P90=$800/mo" |
@@ -106,17 +104,32 @@ sub-skills:
 | `riskTier` | Decision stakes (review-level required) | "Routine / Material / Strategic" |
 
 If any are missing for a real recommendation, ask — don't fabricate.
+If neither `customer.psps[]` nor `psp` exists, say the psp pack
+produces it (`/psp:psp`; install with
+`/plugin install psp@gtm-operator-skills`). Do not invent a PSP.
+
+## Works with the suite
+
+This is step 6 of the GTM operator suite (`/plugin marketplace add cmj-hub/gtm-operator-skills`).
+
+- **Reads:** `customer.psps` (fallback: the `psp` block) and `icp` from `brand-config.json` if present.
+- **Writes:** `customer` and `pricing`. Merge at the field level; never overwrite another pack's keys.
+- **Before this:** psp (`/psp:psp`), when no PSP exists yet.
+- **After this:** landing-page (`/landing-page:page`), when the tiers are set; sales-offer (`/sales-offer:cold-offer`), when the price goes into a give-first offer.
+
+If a companion pack is not installed, name it and its install line (`/plugin install <name>@gtm-operator-skills`); do not do its job inline.
 
 ## References
 
 Load these on demand for deeper context:
 
-- `references/pricing-framework.md` — The full JMC pricing surgery framework
-- `references/pricing-banned-patterns.md` — Pricing moves that fail predictably
-- `references/pricing-lineage.md` — Simon / Kahneman / Ariely / Christensen / Ramanujam
-- `references/reference-frame-stack.md` — Strongest-to-weakest anchor types
-- `references/value-metric-catalog.md` — Common B2B value-metric patterns + failure modes
-- `references/decoy-effect-patterns.md` — Asymmetric dominance in three-tier design
+- [Pricing framework](references/pricing-framework.md) — The full JMC pricing surgery framework
+- [Banned patterns](references/pricing-banned-patterns.md) — Pricing moves that fail predictably
+- [Lineage](references/pricing-lineage.md) — Simon / Kahneman / Ariely / Christensen / Ramanujam
+- [Reference-frame stack](references/pricing-framework.md#the-reference-frame-stack) — Strongest-to-weakest anchor types
+- [Value-metric engineering](references/pricing-framework.md#value-metric-engineering) — Common B2B value-metric patterns + failure modes
+- [Three-tier contrast set](references/pricing-framework.md#three-tier-contrast-set-architecture) — Asymmetric dominance in three-tier design
+- [SOUL.md](../SOUL.md) — Operator voice template (pricing section)
 
 ## Sub-skills
 

@@ -2,9 +2,9 @@
 name: pricing-diagnostic
 description: The three-surface pricing diagnostic — willingness-to-pay distribution, value-metric alignment, and packaging-vs-pricing diagnosis. Loaded by the main pricing skill when the operator asks "should I raise prices", "where am I leaving money on the table", or "diagnose my pricing." Outputs a diagnostic report with surface-level scores (0-100 per surface), top 3 leaks, and a triage decision (price-tune / package-rebuild / metric-shift / hold).
 user-invocable: false
-allowed-tools: Read
-  - Grep
+allowed-tools: Read Grep Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/wtp_distribution.py:*)
 license: MIT
+models: ""
 
 ---
 
@@ -32,7 +32,7 @@ Required (from `brand-config.json`):
 
 - `pricing.currentTiers` — present prices + cadence
 - `pricing.valueMetric` — current unit
-- `customer.psps` — Pain Signal Profile(s)
+- `customer.psps` (fallback: the shared `psp` block) — Pain Signal Profile(s)
 - `pricing.discountPolicy` — documented thresholds or "discretion"
 
 Optional but improves diagnosis:
@@ -66,6 +66,19 @@ Score this surface 0-100:
 | 86-100 | Recent structured WTP per PSP, quarterly refresh, tested by segment. Low-leverage. |
 
 Output: WTP score + top 2 specific gaps + recommended action.
+
+
+**If the operator has Van Westendorp survey responses** (CSV with
+`respondent_id,psp,too_cheap,bargain,expensive,too_expensive`), compute
+the thresholds instead of estimating them:
+
+```bash
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/wtp_distribution.py --input responses.csv
+```
+
+Report the acceptable range `[PMC, PME]` and the optimal price point per
+PSP. Fewer than 15 responses per PSP is too thin; say so rather than
+quoting the numbers as settled.
 
 ### 3. Surface 2 — Value-metric alignment
 
@@ -165,7 +178,7 @@ Before delivering the report:
 ## References
 
 - `../../pricing/references/pricing-framework.md` — the three surfaces deep
-- `../../pricing/references/value-metric-catalog.md` — value-metric patterns
-- `../../pricing/references/decoy-effect-patterns.md` — packaging diagnostics
+- `../../pricing/references/pricing-framework.md` — "Value-metric engineering" and "Three-tier contrast-set architecture"
+- `../../scripts/wtp_distribution.py` — Van Westendorp thresholds for Surface 1
 - `../pricing-audit/SKILL.md` — the 30-point audit (next step for high-stakes diagnoses)
 - `../pricing-tribunal/SKILL.md` — for material change decisions

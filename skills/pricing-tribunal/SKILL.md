@@ -4,6 +4,7 @@ description: The capstone workflow for high-stakes pricing decisions. Four stage
 user-invocable: false
 allowed-tools: Read
 license: MIT
+models: ""
 
 ---
 

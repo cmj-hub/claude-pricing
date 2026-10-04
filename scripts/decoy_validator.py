@@ -34,6 +34,7 @@ Tier JSON format:
   }
 
 Returns: JSON with pass/fail per rule + an overall score 0-100.
+Exits 1 when the score is below 60 (REBUILD), 0 otherwise.
 
 Zero dependencies. Python 3.8+.
 """
@@ -285,6 +286,9 @@ def main():
         write_output(args.output, out)
     else:
         print(out)
+    # Exit 1 on REBUILD so a caller can loop until the structure holds.
+    if result["score"] < 60:
+        sys.exit(1)
 
 
 if __name__ == "__main__":

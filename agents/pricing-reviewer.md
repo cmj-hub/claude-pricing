@@ -161,7 +161,7 @@ pricing-contrast-set / pricing-pocket-waterfall / pricing-tribunal}
 | 85-100 | Healthy. Schedule next quarterly review. | Pricing Quarterly Review |
 | 65-84 | Real issues. Targeted iteration. | Route to the lowest-scoring sub-skill |
 | 40-64 | Structural problems. Rebuild needed. | pricing-tribunal for material change |
-| 0-39 | Pricing is broken. Diagnostic first. | pricing-diagnostic + claude-psp |
+| 0-39 | Pricing is broken. Diagnostic first. | pricing-diagnostic + psp pack (`/psp:psp`) |
 
 ## Self-check
 

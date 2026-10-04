@@ -2,9 +2,9 @@
 name: pricing-reference-frames
 description: Design the reference-frame stack for pricing copy. Picks the strongest plausible anchor (inertia / opportunity cost / replacement cost / competitor) for the operator's PSP segment, generates the anchor copy block, and applies Prospect Theory loss-aversion patterns so the page reads "worth it or refund" rather than "save 40%." Loaded by the main pricing skill when the operator asks about anchoring, framing, or rewriting pricing copy.
 user-invocable: false
-allowed-tools: Read
-  - Grep
+allowed-tools: Read Grep
 license: MIT
+models: ""
 
 ---
 
@@ -85,7 +85,7 @@ Competitor-frame example (acceptable):
 
 Competitor-frame example (banned):
 
-> "$X cheaper than Competitor Y." (See `pricing-banned-patterns.md`.)
+> "$X cheaper than Competitor Y." (See `../../pricing/references/pricing-banned-patterns.md`.)
 
 ## Workflow
 
@@ -93,7 +93,7 @@ Competitor-frame example (banned):
 
 From `brand-config.json`:
 
-- `customer.psps[]` — at least one PSP
+- `customer.psps[]` (fallback: the shared `psp` block) — at least one PSP
 - `pricing.currentTiers` — current pricing
 - Optional: `customer.competitors[]`
 
