@@ -33,7 +33,7 @@ generate generic pricing.
 
 If the operator has not set up brand-config.json + SOUL.md AND has
 not explicitly opted out (e.g. `--no-config`), the agent refuses to
-recommend real pricing. Generic AI pricing is worse than no pricing.
+recommend real pricing. Generic AI pricing is worse than no pricing. Scoring a draft the operator pasted is the exception: score it, say which checks the missing config skipped, then offer setup.
 
 ### 3. Quote walk-aways verbatim
 
