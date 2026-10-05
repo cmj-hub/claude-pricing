@@ -23,6 +23,8 @@ python3 scripts/score_price.py --file examples/price-no-metric.json  # exit 1: -
 
 Part of the GTM operator suite — `/plugin install gtm@gtm-operator-skills` installs all ten.
 
+Add the [gtm-operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) to see the suite's next step above your prompt and keep `brand-config.json` from being overwritten: `/plugin install gtm-operator@gtm-operator-skills`.
+
 One command, eleven modes: `/pricing:pricing [status | setup | diagnose | audit | tiers | anchor | waterfall | value-metric | tribunal | review | renewal]`. No argument runs `status`. Moved in 0.6.0: the former `pricing-*` sub-skills are these modes now.
 
 > "Raise prices 15%" is not a diagnosis. The leak is usually after the list price.
