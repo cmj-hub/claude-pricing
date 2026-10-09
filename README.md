@@ -80,6 +80,10 @@ It will not change live prices. It will not run a customer survey. It will not s
 
 This pack drafts and scores. It will not pick this quarter's PSP, ingest your CRM, or update when Gmail changes the spam window. Those are judgement calls and live data. This pack gives you the instrument and the rubric; you bring the account.
 
+## The data step this pack leaves to you
+
+This pack diagnoses and scores the three-tier set from the pricing page and willingness-to-pay notes you already hold. No The GTM Directory job is required for the first loop.
+
 ## Is this just "raise prices 15%"?
 
 No. A blanket raise still leaks pocket price. Diagnose willingness-to-pay, the value metric, and the discount stack first. Then cut. Pricing is surgery. Diagnose first. Cut last.
