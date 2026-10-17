@@ -2,7 +2,7 @@
 name: pricing
 description: "B2B pricing surgery: willingness-to-pay, value metric, anchors, three tiers with a real decoy, discount leaks, tribunal, renewal and quarterly reviews. Use when the operator asks about pricing, raising prices, tiers, discounts, value metric, or a pricing audit. Not for the Pain Signal Profile (psp), the whole landing page (landing-page), or a give-first first email (sales-offer)."
 argument-hint: "[status | setup | diagnose | audit | tiers | anchor | waterfall | value-metric | tribunal | review | renewal]"
-allowed-tools: Read Write Grep Glob Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/score_price.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/decoy_validator.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/wtp_distribution.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pocket_price_waterfall.py:*)
+allowed-tools: Read Write Grep Glob Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/score_price.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/decoy_validator.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/wtp_distribution.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pocket_price_waterfall.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/score_anchor.py:*)
 license: MIT
 models: ""
 ---
@@ -18,7 +18,7 @@ compound; sloppy cuts hemorrhage margin.
 1. Read `brand-config.json` and `SOUL.md` at the project root if they exist.
 2. If `operator` or `icp` is missing, say "Run `/gtm:setup` once for the whole suite" (the [setup mode](modes/setup.md) asks those inline when the gtm plugin is not installed).
 3. If `pricing` is empty or `SOUL.md` has no pricing section, run the [setup mode](modes/setup.md) first, unless the operator passed `--no-config` (then warn that the output is generic).
-4. Drafts this pack writes go in `gtm/` at the project root (create it if missing): `gtm/price.json`, `gtm/tiers.json`, `gtm/waterfall.csv`, `gtm/wtp.csv`.
+4. Drafts this pack writes go in `gtm/` at the project root (create it if missing): `gtm/price.json`, `gtm/tiers.json`, `gtm/anchor.json`, `gtm/waterfall.csv`, `gtm/wtp.csv`.
 
 ## Modes
 
@@ -63,9 +63,9 @@ When a run finishes cleanly, say the next step: the next mode the status checkli
 5. **Value-metric alignment beats price-point tuning.** The wrong
    unit (per-seat when the value is per-API-call) leaks more margin
    than any discount policy.
-6. **Three-tier contrast-set with a real decoy** outperforms
-   two-tier or four-tier in 80%+ of B2B SaaS / services tests.
-   (Ariely, asymmetric dominance.)
+6. **Three-tier contrast-set with a real decoy** gives
+   the buyer a reference point that makes the target tier easier to
+   choose. (Ariely, asymmetric dominance.)
 7. **Discount discipline > headline price.** The pocket-price
    waterfall surfaces where margin is leaking after the line-item
    price. Plug the leaks before tuning the headline.
@@ -109,15 +109,20 @@ one; never show a price without the unit it is per. Exit 0 ends with
 the next suite step. Exit 2 is bad input. `--json` for the report.
 Example drafts: `examples/price-good.json`, `examples/price-no-metric.json`.
 
-All four scripts take `--file PATH` or `--stdin` and exit 0 ok, 1
-refused, 2 bad input. `score_price.py` prints text by default; the
-other three print JSON by default (`--text` for lines).
+Score the anchor block the same way before it goes above the tiers:
+`python3 ${CLAUDE_PLUGIN_ROOT}/scripts/score_anchor.py --file gtm/anchor.json`
+(anchor mode has the fields; examples: `examples/anchor-good.json`,
+`examples/anchor-competitor-only.json`).
+
+All five scripts take `--file PATH` or `--stdin` and exit 0 ok, 1
+refused, 2 bad input. `score_price.py` and `score_anchor.py` print text
+by default; the other three print JSON by default (`--text` for lines).
 
 ## Works with the suite
 
 This is step 6 of the GTM operator suite (`/plugin marketplace add cmj-hub/gtm-operator-skills`).
 
-- **Reads:** `customer.psps` (fallback: the `psp` block) and `icp` from `brand-config.json` if present.
+- **Reads:** `customer.psps` (fallback: the `psp` block) and `icp` from `brand-config.json` if present; `gtm/offer-stack.json` (offer-stack pack) for the anchor, if present.
 - **Writes:** `customer` and `pricing`; drafts in `gtm/`. Merge at the field level; never overwrite another pack's keys.
 - **Before this:** psp (`/psp:psp`), when no PSP exists yet.
 - **After this:** landing-page (`/landing-page:page`), when the tiers are set; sales-offer (`/sales-offer:cold-offer`), when the price goes into a give-first offer.
@@ -132,6 +137,7 @@ Load these on demand for deeper context:
 - [Banned patterns](references/pricing-banned-patterns.md) — Pricing moves that fail predictably
 - [Lineage](references/pricing-lineage.md) — Simon / Kahneman / Ariely / Christensen / Ramanujam
 - [Reference-frame stack](references/pricing-framework.md#the-reference-frame-stack) — Strongest-to-weakest anchor types
+- [Pricing anchoring](references/pricing-anchoring.md): anchor before price, same unit, sourced number, real former prices
 - [Value-metric engineering](references/pricing-framework.md#value-metric-engineering) — Common B2B value-metric patterns + failure modes
 - [Three-tier contrast set](references/pricing-framework.md#three-tier-contrast-set-architecture) — Asymmetric dominance in three-tier design
 - [SOUL.md](../../SOUL.md) — Operator voice template (pricing section)

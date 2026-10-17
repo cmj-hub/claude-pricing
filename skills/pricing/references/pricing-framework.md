@@ -195,7 +195,7 @@ sales team's discretion.
 
 ## Three-tier contrast-set architecture
 
-The structure that outperforms in 80%+ of B2B SaaS / services tests:
+The structure that gives the buyer a decoy to compare against:
 
 ```
 Tier 1 (Decoy)      Tier 2 (Target)      Tier 3 (Anchor)

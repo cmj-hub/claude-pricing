@@ -11,8 +11,8 @@ Design the three-tier contrast set (decoy / target / anchor) and validate it.
 - Output format
 - Related
 
-The three-tier architecture engine. The structure that outperforms
-two-tier and four-tier in 80%+ of B2B SaaS / services tests.
+The three-tier architecture engine. The structure that gives the
+buyer a decoy to compare the target tier against.
 
 ## Activation
 

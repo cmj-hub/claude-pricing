@@ -1,0 +1,13 @@
+{
+  "frame": "inertia",
+  "anchor": {
+    "amount": 343200,
+    "period": "year",
+    "source": "gtm/offer-stack.json pain p1: 3 hours a week x 40 reps x $55, from the discovery call on 2026-10-02"
+  },
+  "price": {"amount": 4000, "period": "month"},
+  "anchor_before_price": true,
+  "headline": "Your reps spend 6,240 hours a year typing call notes.",
+  "subhead": "At $55 an hour loaded, that is $343,200 of selling time spent on admin.",
+  "guarantee": "If notes are not in the CRM within ten minutes for 90% of calls by day 30, month two is free."
+}
