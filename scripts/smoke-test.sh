@@ -102,6 +102,13 @@ check "price with no metric is refused (exit 1)" \
   bash -c "python3 '$SCRIPT_DIR/score_price.py' --file '$SCRIPT_DIR/../examples/price-no-metric.json' > /dev/null; [ \$? -eq 1 ]"
 
 echo ""
+echo "=== score_anchor.py ==="
+check "sourced inertia anchor passes" \
+  python3 "$SCRIPT_DIR/score_anchor.py" --file "$SCRIPT_DIR/../examples/anchor-good.json"
+check "competitor-only anchor is refused (exit 1)" \
+  bash -c "python3 '$SCRIPT_DIR/score_anchor.py' --file '$SCRIPT_DIR/../examples/anchor-competitor-only.json' > /dev/null; [ \$? -eq 1 ]"
+
+echo ""
 echo "=== CLI convention (--file, --text, Next line) ==="
 EX="$SCRIPT_DIR/../examples"
 check "decoy-validator --file --text ends with Next" \

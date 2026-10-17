@@ -1,0 +1,10 @@
+{
+  "frame": "competitor",
+  "anchor": {"amount": 5400, "period": "year"},
+  "price": {"amount": 450, "period": "month"},
+  "anchor_before_price": false,
+  "headline": "30% cheaper than the big-name note-takers, with every feature you could ever need included.",
+  "subhead": "Same features, lower price.",
+  "guarantee": "Money back if you're not satisfied.",
+  "was_price": {"amount": 650, "period": "month"}
+}

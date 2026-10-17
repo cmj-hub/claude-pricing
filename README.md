@@ -19,6 +19,8 @@ Or score the sample without an agent:
 ```bash
 python3 scripts/score_price.py --file examples/price-good.json       # exit 0, prints "value metric: per active record" ... "Next: /landing-page:page ..."
 python3 scripts/score_price.py --file examples/price-no-metric.json  # exit 1: - a price with no metric → add value_metric, the unit the price is per
+python3 scripts/score_anchor.py --file examples/anchor-good.json     # exit 0: inertia anchor, quantified, sourced, shown before the price
+python3 scripts/score_anchor.py --file examples/anchor-competitor-only.json  # exit 1: - the frame is competitor cost, the weakest in the stack → ...
 ```
 
 Part of the GTM operator suite — `/plugin install gtm@gtm-operator-skills` installs all ten.

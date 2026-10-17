@@ -7,6 +7,7 @@ Build the reference-frame stack and the loss-aversion copy above the tier cards.
 - Activation
 - The reference-frame stack
 - Workflow
+- Score the anchor
 - Output format
 - Related
 
@@ -47,8 +48,8 @@ Inertia anchors look like:
 
 Or for SaaS:
 
-> "Your current stack: $300/mo HubSpot CRM + $200/mo Pipedrive
-> for sales + 6 hours/week of manual data sync = $14,000/year + 
+> "Your current stack: a $300/mo CRM + a $200/mo sales tool
+> + 6 hours/week of manual data sync = $6,000/year in tools + 
 > 312 founder-hours/year. Our $499/mo replaces all three."
 
 ### Frame 2 — Opportunity cost
@@ -101,6 +102,10 @@ If multiple PSPs, ask: "Which PSP should we anchor for? Different
 PSPs may need different reference frames on different page sections."
 
 ### 2. Discover the inertia anchor (always start here)
+
+If `gtm/offer-stack.json` exists, read it first. Its pain total, or its
+biggest single pain, is the inertia anchor, already sourced. Skip to
+step 4. See [references/pricing-anchoring.md](../references/pricing-anchoring.md).
 
 Ask the operator:
 
@@ -172,6 +177,23 @@ Guarantee (1 sentence, ≤30 words):
 - [ ] Loss-coded language above gain-coded language
 - [ ] Guarantee is outcome-tied, not satisfaction-tied
 - [ ] No banned patterns (cost-plus reasoning, "we're cheaper than X")
+- [ ] Anchor shown before the price, in the same unit
+- [ ] Any struck-through former price was really charged (dates on file)
+
+## Score the anchor
+
+Write the block as `gtm/anchor.json` (`frame`, `anchor` with `amount`,
+`period` and `source`, `price`, `anchor_before_price`, `headline`,
+`subhead`, `guarantee`, and `was_price` with `evidence` only if you show
+a former price) and run:
+
+```bash
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/score_anchor.py --file gtm/anchor.json
+```
+
+Exit 1 lists each fix as `- what is wrong → what to change`. Fix them
+and check again. Exit 0 ends with `Next: /pricing:pricing tiers`.
+Examples: `examples/anchor-good.json`, `examples/anchor-competitor-only.json`.
 
 ## Output format
 
@@ -199,4 +221,5 @@ LOSS-AVERSION APPLICATION:
 
 - [references/pricing-framework.md](../references/pricing-framework.md) — full reference-frame stack
 - [references/pricing-banned-patterns.md](../references/pricing-banned-patterns.md) — what to avoid
+- [references/pricing-anchoring.md](../references/pricing-anchoring.md) — anchor order, units, sources, former prices
 - [modes/tiers.md](tiers.md) — next: design the tier cards under the anchor
