@@ -63,9 +63,9 @@ When a run finishes cleanly, say the next step: the next mode the status checkli
 5. **Value-metric alignment beats price-point tuning.** The wrong
    unit (per-seat when the value is per-API-call) leaks more margin
    than any discount policy.
-6. **Three-tier contrast-set with a real decoy** outperforms
-   two-tier or four-tier in 80%+ of B2B SaaS / services tests.
-   (Ariely, asymmetric dominance.)
+6. **Three-tier contrast-set with a real decoy** gives
+   the buyer a reference point that makes the target tier easier to
+   choose. (Ariely, asymmetric dominance.)
 7. **Discount discipline > headline price.** The pocket-price
    waterfall surfaces where margin is leaking after the line-item
    price. Plug the leaks before tuning the headline.

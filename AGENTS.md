@@ -124,4 +124,4 @@ The 4 scripts (pocket_price_waterfall.py / decoy_validator.py /
 wtp_distribution.py / score_price.py) read local CSV/JSON and write local output.
 No network access.
 
-The pack does not call back to Jay Mount Consulting servers.
+The pack does not call back to JMC Go-to-Market Systems servers.

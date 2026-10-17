@@ -135,4 +135,4 @@ MIT. See [LICENSE](./LICENSE).
 
 ## About
 
-Built by [Jay Mount Consulting](https://jaymountconsulting.com).
+Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).

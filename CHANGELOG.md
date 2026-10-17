@@ -4,6 +4,9 @@
 
 Anchor mode gets a scorer. The anchor is the number the buyer sees before the price.
 
+### Changed
+- Brand reads "JMC Go-to-Market Systems" (the legal name stays in LICENSE). Dropped the uncited "80%+ of tests" claim from the three-tier wording.
+
 ### Added
 - `scripts/score_anchor.py` (stdlib only, `--file` / `--stdin` / `--json`, exit 0 / 1 / 2, `Next:` line): refuses an anchor with no number or source, an anchor no bigger than the price in yearly terms, the price shown before the anchor, a competitor frame with no reason, competitor price comparisons, cost-plus copy, over-long headline (14 words), subhead (22) or guarantee (30), a subhead with no number, a satisfaction-only guarantee, and a struck-through former price with no evidence it was charged (US FTC 16 CFR 233.1).
 - `skills/pricing/references/pricing-anchoring.md`: the context file for anchor mode, with sources (Tversky and Kahneman 1974; 16 CFR 233.1).
