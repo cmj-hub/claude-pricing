@@ -1,11 +1,8 @@
 # Changelog
 
-## [0.7.0] — 2026-10-17
+## [0.7.0] (2026-10-17)
 
 Anchor mode gets a scorer. The anchor is the number the buyer sees before the price.
-
-### Changed
-- Brand reads "JMC Go-to-Market Systems" (the legal name stays in LICENSE). Dropped the uncited "80%+ of tests" claim from the three-tier wording.
 
 ### Added
 - `scripts/score_anchor.py` (stdlib only, `--file` / `--stdin` / `--json`, exit 0 / 1 / 2, `Next:` line): refuses an anchor with no number or source, an anchor no bigger than the price in yearly terms, the price shown before the anchor, a competitor frame with no reason, competitor price comparisons, cost-plus copy, over-long headline (14 words), subhead (22) or guarantee (30), a subhead with no number, a satisfaction-only guarantee, and a struck-through former price with no evidence it was charged (US FTC 16 CFR 233.1).
@@ -14,6 +11,7 @@ Anchor mode gets a scorer. The anchor is the number the buyer sees before the pr
 - Anchor mode reads `gtm/offer-stack.json` (offer-stack pack) when present and uses its pain total as the inertia anchor.
 
 ### Changed
+- Brand reads "JMC Go-to-Market Systems" (the legal name stays in LICENSE). Dropped the uncited "80%+ of tests" claim from the three-tier wording.
 - Anchor mode's SaaS inertia example no longer names vendors, and its arithmetic now adds up ($500/mo in tools is $6,000/year).
 - `allowed-tools` pre-approves `score_anchor.py`.
 

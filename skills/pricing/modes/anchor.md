@@ -221,5 +221,5 @@ LOSS-AVERSION APPLICATION:
 
 - [references/pricing-framework.md](../references/pricing-framework.md) — full reference-frame stack
 - [references/pricing-banned-patterns.md](../references/pricing-banned-patterns.md) — what to avoid
-- [references/pricing-anchoring.md](../references/pricing-anchoring.md) — anchor order, units, sources, former prices
+- [references/pricing-anchoring.md](../references/pricing-anchoring.md): anchor order, units, sources, former prices
 - [modes/tiers.md](tiers.md) — next: design the tier cards under the anchor

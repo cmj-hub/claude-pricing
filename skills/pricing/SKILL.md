@@ -137,7 +137,7 @@ Load these on demand for deeper context:
 - [Banned patterns](references/pricing-banned-patterns.md) — Pricing moves that fail predictably
 - [Lineage](references/pricing-lineage.md) — Simon / Kahneman / Ariely / Christensen / Ramanujam
 - [Reference-frame stack](references/pricing-framework.md#the-reference-frame-stack) — Strongest-to-weakest anchor types
-- [Pricing anchoring](references/pricing-anchoring.md) — Anchor before price, same unit, sourced number, real former prices
+- [Pricing anchoring](references/pricing-anchoring.md): anchor before price, same unit, sourced number, real former prices
 - [Value-metric engineering](references/pricing-framework.md#value-metric-engineering) — Common B2B value-metric patterns + failure modes
 - [Three-tier contrast set](references/pricing-framework.md#three-tier-contrast-set-architecture) — Asymmetric dominance in three-tier design
 - [SOUL.md](../../SOUL.md) — Operator voice template (pricing section)

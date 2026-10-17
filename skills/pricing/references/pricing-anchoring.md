@@ -41,7 +41,7 @@ The scorer turns both into a yearly figure and refuses an anchor that is no bigg
 
 If the offer-stack pack has run, `gtm/offer-stack.json` already holds each pain's yearly cost and the total, each with a source. That total is the inertia anchor. Use the single biggest pain if the total mixes time and cash, and say "worth" for time, "costs" for cash.
 
-If it has not run, ask anchor mode's discovery questions (what they do today, its loaded cost, the cost of another quarter of the same), or install the pack: `npx skills add cmj-hub/claude-offer-stack --all -g --full-depth`.
+If it has not run, ask anchor mode's discovery questions: what they do today, its loaded cost, and the cost of another quarter of the same.
 
 ## A former price must be real
 
