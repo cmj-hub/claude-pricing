@@ -78,7 +78,7 @@ Suite pass. The main skill loads. Shared files merge, never overwrite.
 
 ## [0.3.0] — 2026-09-08
 
-Public magnet pass. Instrument stays public. First loop is 15 minutes.
+Instrument stays public. First loop is 15 minutes.
 
 ### Added
 - Definition-first README (GEO paragraph, 15-minute artifact, FAQ H2s, current Pass price).
