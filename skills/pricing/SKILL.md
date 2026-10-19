@@ -2,7 +2,7 @@
 name: pricing
 description: "B2B pricing surgery: willingness-to-pay, value metric, anchors, three tiers with a real decoy, discount leaks, tribunal, renewal and quarterly reviews. Use when the operator asks about pricing, raising prices, tiers, discounts, value metric, or a pricing audit. Not for the Pain Signal Profile (psp), the whole landing page (landing-page), or a give-first first email (sales-offer)."
 argument-hint: "[status | setup | diagnose | audit | tiers | anchor | waterfall | value-metric | tribunal | review | renewal]"
-allowed-tools: Read Write Grep Glob Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/score_price.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/decoy_validator.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/wtp_distribution.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pocket_price_waterfall.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/score_anchor.py:*)
+allowed-tools: Read Write(./gtm/**) Grep Glob Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/score_price.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/decoy_validator.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/wtp_distribution.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pocket_price_waterfall.py:*) Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/score_anchor.py:*)
 license: MIT
 models: ""
 ---
