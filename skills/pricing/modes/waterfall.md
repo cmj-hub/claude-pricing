@@ -63,11 +63,10 @@ finding. You can't manage what you can't measure.
 
 ### 2. Run the waterfall script
 
-Save the rows as `gtm/waterfall.csv` (create `gtm/` if missing; shape:
-`${CLAUDE_PLUGIN_ROOT}/examples/waterfall-customers.csv`), then run:
+Use the operator's existing private input. The column contract is documented in `examples/README.md`; no customer dataset is bundled. Do not create a sample CSV or export the operator's data automatically. For Jay, any CSV export needs his explicit approval after inspecting the exact contents. Run the scorer against the supplied private input:
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pocket_price_waterfall.py --file gtm/waterfall.csv --text
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pocket_price_waterfall.py --file /path/to/your-private-input.csv --text
 ```
 
 Drop `--text` for the full JSON report (the default). Exit 1 means no
