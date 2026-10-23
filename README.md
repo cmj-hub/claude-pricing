@@ -136,3 +136,7 @@ MIT. See [LICENSE](./LICENSE).
 ## About
 
 Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).
+
+## Input data
+
+Bundled CSV datasets have been withdrawn. The scorer accepts your own private input; no prospect list, customer table or survey dataset is distributed. See `examples/README.md` for the input contract. Synthetic software tests are not data resources.

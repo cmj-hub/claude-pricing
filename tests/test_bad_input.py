@@ -7,6 +7,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from native_test_support import run_native, waterfall_rows, wtp_rows
+
 ROOT = Path(__file__).resolve().parents[1]
 PROBE = "super-secret-token"
 
@@ -46,14 +48,9 @@ class PricingBadInput(unittest.TestCase):
         self.assertNotIn("Traceback", result.stderr)
 
     def test_wtp_hides_bad_cell(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "wtp.csv"
-            path.write_text(
-                "respondent_id,psp,too_cheap,bargain,expensive,too_expensive\n"
-                f"r1,default,{PROBE},1,2,3\n",
-                encoding="utf-8",
-            )
-            result = run("wtp_distribution.py", ["--input", str(path)])
+        rows = wtp_rows(1)
+        rows[0]["too_cheap"] = PROBE
+        result = run_native("wtp_distribution.py", ["--input", "private-input"], rows)
         self.assertNotIn("Traceback", result.stderr)
         self.assertNotIn(PROBE, result.stderr + result.stdout)
         self.assertIn("bad number or missing column", result.stderr)
@@ -64,15 +61,9 @@ class PricingBadInput(unittest.TestCase):
         self.assertIn("file not found", result.stderr)
 
     def test_pocket_hides_bad_cell(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "customers.csv"
-            path.write_text(
-                "customer_id,list_price,cadence,discount_steps_json,"
-                "payment_terms_days,implementation_fee,credits_applied\n"
-                f"acme,{PROBE},monthly,[],30,0,0\n",
-                encoding="utf-8",
-            )
-            result = run("pocket_price_waterfall.py", ["--input", str(path)])
+        rows = waterfall_rows()
+        rows[0]["list_price"] = PROBE
+        result = run_native("pocket_price_waterfall.py", ["--input", "private-input"], rows)
         self.assertNotIn("Traceback", result.stderr)
         self.assertNotIn(PROBE, result.stderr + result.stdout)
         self.assertIn("bad number or missing column", result.stderr)

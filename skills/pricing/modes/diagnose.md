@@ -66,14 +66,10 @@ Score this surface 0-100:
 
 Output: WTP score + top 2 specific gaps + recommended action.
 
-**If the operator has Van Westendorp survey responses**, save them as
-`gtm/wtp.csv` (create `gtm/` if missing) with the header
-`respondent_id,psp,too_cheap,bargain,expensive,too_expensive` (shape:
-`${CLAUDE_PLUGIN_ROOT}/examples/wtp-responses.csv`) and compute the
-thresholds instead of estimating them:
+**If the operator supplies measured Van Westendorp survey responses**, use their existing private input. Required fields are respondent identity, segment, and their four measured price thresholds; see `examples/README.md` for the exact input contract. Do not invent responses or create a sample CSV. For Jay, a CSV export needs his explicit approval after inspecting its exact contents. Compute the thresholds from the supplied evidence instead of estimating them:
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/scripts/wtp_distribution.py --file gtm/wtp.csv --per-psp --text
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/wtp_distribution.py --file /path/to/your-private-input.csv --per-psp --text
 ```
 
 Exit 1 means fewer than 5 usable responses; the line says what to

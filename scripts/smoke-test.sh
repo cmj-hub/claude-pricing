@@ -24,19 +24,9 @@ check() {
   fi
 }
 
-echo "=== pocket_price_waterfall.py ==="
-# Build a minimal CSV with 3 customers + assorted discount steps
-cat > "$TMP_DIR/customers.csv" <<'CSV'
-customer_id,list_price,cadence,discount_steps_json,payment_terms_days,implementation_fee,credits_applied
-acme,1200,monthly,"[{""name"":""ramp"",""pct"":0.20,""reason"":""1st year""},{""name"":""volume"",""pct"":0.10,""reason"":""25 seats""}]",30,0,0
-beta,500,annual,"[{""name"":""strategic"",""pct"":0.15,""reason"":""design partner""}]",60,500,100
-gamma,2400,annual,"[]",30,0,0
-CSV
-check "pocket-waterfall on 3-customer cohort" \
-  python3 "$SCRIPT_DIR/pocket_price_waterfall.py" \
-    --input "$TMP_DIR/customers.csv" --output "$TMP_DIR/waterfall.json"
-check "output contains top_3_leaks key" \
-  grep -q '"top_3_leaks"' "$TMP_DIR/waterfall.json"
+echo "=== CSV-input CLI and arithmetic contracts (native in-memory test data) ==="
+check "waterfall and WTP CLI, validation and arithmetic" \
+  python3 -m unittest discover -s "$SCRIPT_DIR/../tests" -p test_cli.py
 
 echo ""
 echo "=== decoy_validator.py ==="
@@ -80,21 +70,6 @@ check "broken structure scores <60" \
   bash -c "python3 -c 'import json; d=json.load(open(\"$TMP_DIR/decoy_b.json\")); exit(0 if d[\"score\"] < 60 else 1)'"
 
 echo ""
-echo "=== wtp_distribution.py ==="
-# Van Westendorp survey: 20 respondents, clean distribution
-{
-  echo "respondent_id,psp,too_cheap,bargain,expensive,too_expensive"
-  for i in $(seq 1 20); do
-    base=$((i * 5 + 50))
-    echo "r$i,saas,$((base / 2)),$((base * 3 / 4)),$((base * 5 / 4)),$((base * 7 / 4))"
-  done
-} > "$TMP_DIR/wtp.csv"
-check "wtp-analyzer on 20-response cohort" \
-  python3 "$SCRIPT_DIR/wtp_distribution.py" --input "$TMP_DIR/wtp.csv" --output "$TMP_DIR/wtp.json"
-check "output contains thresholds + acceptable_range" \
-  bash -c "grep -q 'thresholds' '$TMP_DIR/wtp.json' && grep -q 'acceptable_range' '$TMP_DIR/wtp.json'"
-
-echo ""
 echo "=== score_price.py ==="
 check "complete price draft passes" \
   python3 "$SCRIPT_DIR/score_price.py" --file "$SCRIPT_DIR/../examples/price-good.json"
@@ -113,10 +88,6 @@ echo "=== CLI convention (--file, --text, Next line) ==="
 EX="$SCRIPT_DIR/../examples"
 check "decoy-validator --file --text ends with Next" \
   bash -c "python3 '$SCRIPT_DIR/decoy_validator.py' --file '$EX/tiers-healthy.json' --text | tail -1 | grep -q '^Next: '"
-check "wtp --file sample passes" \
-  python3 "$SCRIPT_DIR/wtp_distribution.py" --file "$EX/wtp-responses.csv" --text
-check "waterfall --file sample passes" \
-  python3 "$SCRIPT_DIR/pocket_price_waterfall.py" --file "$EX/waterfall-customers.csv" --text
 check "score_price refusal ends with Next" \
   bash -c "python3 '$SCRIPT_DIR/score_price.py' --file '$EX/price-no-metric.json' | tail -1 | grep -q '^Next: fix the lines above'"
 

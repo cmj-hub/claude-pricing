@@ -51,7 +51,7 @@ MIN_RESPONSES = 5
 NEXT_OK = "/pricing:pricing tiers (price the target tier inside the acceptable range)"
 NEXT_REFUSED = "fix the lines above and run this again."
 EPILOG = """example:
-  python3 scripts/wtp_distribution.py --file examples/wtp-responses.csv --text
+  python3 scripts/wtp_distribution.py --file /path/to/your-private-input.csv --text
 
 exit codes: 0 analyzed, 1 refused (fewer than 5 usable responses), 2 bad input"""
 

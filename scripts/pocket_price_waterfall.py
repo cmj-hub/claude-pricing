@@ -47,7 +47,7 @@ NEXT_OK = ("plug the top leak first; run /pricing:pricing tribunal if the "
            "policy change touches more than 10% of customers")
 NEXT_REFUSED = "fix the lines above and run this again."
 EPILOG = """example:
-  python3 scripts/pocket_price_waterfall.py --file examples/waterfall-customers.csv --text
+  python3 scripts/pocket_price_waterfall.py --file /path/to/your-private-input.csv --text
 
 exit codes: 0 analyzed, 1 refused (no usable customer row), 2 bad input"""
 

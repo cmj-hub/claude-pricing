@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased — public sample withdrawal
+
+- Removed bundled CSV datasets and references. Private-input CLI support remains.
+- Replaced fixture-dependent checks with newly authored native in-memory test records and mocked I/O; no replacement dataset or CSV sample is published.
+
 ## [0.7.0] (2026-10-17)
 
 Anchor mode gets a scorer. The anchor is the number the buyer sees before the price.
@@ -30,7 +35,7 @@ One skill, eleven modes. Drafts live in `gtm/`. Every script says what to do nex
 - Setup mode points to `/gtm:setup` for the shared `operator` / `icp` fields and asks only those gaps inline when the gtm plugin is not installed.
 - All four scripts take `--file PATH` and `--stdin`; `--tiers` and `--input` remain as hidden aliases. `--json` everywhere; `--text` / `--format text` on the three JSON-default scripts. `--help` shows an example.
 - Refusals read `- what is wrong → what to change` and end with `Next: fix the lines above and run this again.`; a pass ends with the next step. JSON gains `next`, plus `fixes` (score_price, wtp, waterfall) or a per-check `fix` (decoy_validator). Existing keys are unchanged.
-- `examples/wtp-responses.csv`, `examples/waterfall-customers.csv`, `tests/test_cli.py`, smoke-test entries.
+- CLI contract tests and smoke checks. The former bundled survey and customer samples were subsequently withdrawn.
 - `evals/`: five trigger cases and one near-miss (give-first email → sales-offer). `.github/workflows/evals.yml` runs them on manual dispatch only.
 - README "In 60 seconds".
 
