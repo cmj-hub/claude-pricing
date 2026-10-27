@@ -1,47 +1,52 @@
 {
-  "name": "jmc-pricing",
-  "version": "0.7.0",
+  "name": "@jmc-gtm/claude-pricing",
+  "version": "0.7.1",
   "description": "Pricing surgery treats price as the highest-leverage B2B lever: diagnose willingness-to-pay, pick the value metric, set a reference frame, build a three-tier contrast set, then plug discount leaks. A 1% price improvement is ~11% profit on typical B2B economics (Simon).",
   "license": "MIT",
-  "bin": {
-    "jmc-pricing": "./install.sh"
-  },
-  "scripts": {
-    "install-skills": "npx -y skills add cmj-hub/claude-pricing --all -g --copy --full-depth",
-    "smoke": "bash scripts/smoke-test.sh"
-  },
-  "files": [
-    "skills",
-    "scripts",
-    "agents",
-    "examples",
-    "AGENTS.md",
-    "SOUL.md",
-    "brand-config.example.json",
-    "README.md",
-    "LICENSE",
-    "install.sh",
-    "install.ps1"
-  ],
+  "author": "JMC Go-to-Market Systems",
+  "homepage": "https://github.com/cmj-hub/claude-pricing#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cmj-hub/claude-pricing.git"
   },
-  "homepage": "https://jaymountconsulting.com/skills",
   "bugs": {
     "url": "https://github.com/cmj-hub/claude-pricing/issues"
   },
   "keywords": [
     "agent-skills",
     "claude-code",
+    "claude-plugin",
     "cursor",
     "codex",
     "grok",
     "pricing",
     "hermann-simon",
-    "b2b"
+    "b2b",
+    "willingness-to-pay",
+    "value-metric",
+    "decoy-pricing",
+    "pocket-price-waterfall",
+    "gtm"
   ],
-  "engines": {
-    "node": ">=18"
+  "files": [
+    ".claude-plugin",
+    "skills",
+    "agents",
+    "scripts",
+    "examples",
+    "AGENTS.md",
+    "SOUL.md",
+    "brand-config.example.json",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "!scripts/install.sh",
+    "!scripts/install.ps1",
+    "!scripts/smoke-test.sh",
+    "!scripts/validate-skill-frontmatter.py"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }
